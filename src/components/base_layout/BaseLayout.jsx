@@ -1,5 +1,5 @@
 import logoHmjTi from "../../assets/hmj-ti.png";
-import * as React from "react";
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -87,7 +87,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function BaseLayout(props) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(true);
   const { children } = props;
   return (
     <Box sx={{ display: "flex" }}>
@@ -193,31 +193,31 @@ export default function BaseLayout(props) {
         >
           <DrawerListItem
             open={open}
-            selected={true}
+            toPage="/"
             icon={<TiHome size={24} color="white" />}
-            text={"Dashbord"}
+            text={"Dashboard"}
           />
           <DrawerListItem
             open={open}
-            selected={false}
+            toPage="/article"
             icon={<MdArticle size={24} color="white" />}
             text={"Berita & Kegiatan"}
           />
           <DrawerListItem
             open={open}
-            selected={false}
+            toPage="/business"
             icon={<MdAddBusiness size={24} color="white" />}
             text={"Ekonomi Kreatif"}
           />
           <DrawerListItem
             open={open}
-            selected={false}
+            toPage="/member"
             icon={<BsFillPeopleFill size={24} color="white" />}
             text={"Anggota"}
           />
           <DrawerListItem
             open={open}
-            selected={false}
+            toPage="/complaint"
             icon={<GoReport size={24} color="white" />}
             text={"Pesan & Masukan"}
           />
