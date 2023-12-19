@@ -1,5 +1,5 @@
 import logoHmjTi from "../../assets/hmj-ti.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -19,6 +19,7 @@ import { MdArticle, MdAddBusiness } from "react-icons/md";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { GoReport } from "react-icons/go";
 import { DrawerListItem } from "./DrawerListItem";
+import { DrawerOpen } from "../../context/DrawerOpen";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -87,7 +88,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function BaseLayout(props) {
-  const [open, setOpen] = useState(true);
+  const { open, setOpen } = useContext(DrawerOpen);
   const { children } = props;
   return (
     <Box sx={{ display: "flex" }}>

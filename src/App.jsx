@@ -5,6 +5,7 @@ import { Business } from "./pages/business/Business";
 import { Member } from "./pages/member/Member";
 import { Complaint } from "./pages/complaint/Complaint";
 import { createTheme, ThemeProvider } from "@mui/material";
+import DraweOpenContextProvider from "./context/DrawerOpen";
 
 const theme = createTheme({
   palette: {
@@ -36,9 +37,14 @@ const routes = createBrowserRouter([
   },
 ]);
 export default function App() {
-  return <>
-  <ThemeProvider theme={theme}>
-    <RouterProvider router={routes} />;
-  </ThemeProvider>;
-  </>
+  return (
+    <>
+      <ThemeProvider theme={theme}>
+        <DraweOpenContextProvider>
+          <RouterProvider router={routes} />;
+        </DraweOpenContextProvider>
+      </ThemeProvider>
+      ;
+    </>
+  );
 }
