@@ -30,8 +30,11 @@ export const DrawerListItem = ({ open, toPage, icon, text }) => {
             borderRadius: "3px",
             "&.Mui-selected": {
               background: "#C21010",
+            },
+            "&:hover": {
+              background: "#C21010",
               "&:hover": {
-                backgroundColor: "#C21010",
+                background: "#C21010",
               },
             },
           }}

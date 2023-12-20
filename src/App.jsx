@@ -4,16 +4,10 @@ import { Article } from "./pages/article/Article";
 import { Business } from "./pages/business/Business";
 import { Member } from "./pages/member/Member";
 import { Complaint } from "./pages/complaint/Complaint";
-import { createTheme, ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import DraweOpenContextProvider from "./context/DrawerOpen";
+import { themeColor } from "./theme/ColorTheme";
 
-const theme = createTheme({
-  palette: {
-    myprimary: {
-      main: "#B20600",
-    },
-  },
-});
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -39,7 +33,7 @@ const routes = createBrowserRouter([
 export default function App() {
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={themeColor}>
         <DraweOpenContextProvider>
           <RouterProvider router={routes} />;
         </DraweOpenContextProvider>

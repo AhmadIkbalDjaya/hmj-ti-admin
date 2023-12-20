@@ -1,5 +1,5 @@
 import logoHmjTi from "../../assets/hmj-ti.png";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -12,6 +12,7 @@ import {
   Avatar,
   Container,
   InputBase,
+  CssBaseline,
 } from "@mui/material";
 import { FiMenu, FiSearch } from "react-icons/fi";
 import { TiHome } from "react-icons/ti";
@@ -92,6 +93,7 @@ export default function BaseLayout(props) {
   const { children } = props;
   return (
     <Box sx={{ display: "flex" }}>
+      <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
@@ -133,7 +135,7 @@ export default function BaseLayout(props) {
                 alignItems={"center"}
                 gap={1}
                 sx={{
-                  backgroundColor: "#DFE3E8",
+                  backgroundColor: "zinc-200",
                   width: "250px",
                   padding: "0 10px",
                   boxSizing: "border-box",
@@ -145,10 +147,10 @@ export default function BaseLayout(props) {
                   placeholder="Cari sesuatu ..."
                   sx={{
                     flexGrow: 1,
-                    color: "#637381",
+                    color: "gray-500",
                     fontWeight: "bold",
                     placeholder: {
-                      color: "#637381",
+                      color: "gray-500",
                       fontWeight: "bold",
                     },
                   }}
@@ -159,14 +161,14 @@ export default function BaseLayout(props) {
               <Avatar alt="Remy Sharp" src="" />
               <Box display={{ xs: "none", md: "block" }}>
                 <Typography
-                  color="#212B36"
+                  color="gray-800"
                   sx={{ fontSize: "14px", fontWeight: "bold" }}
                 >
                   Aidil Ashyari
                 </Typography>
                 <Typography
                   variant="subtitle2"
-                  color={"#637381"}
+                  color={"gray-500"}
                   sx={{ fontSize: "10px", fontWeight: "bold" }}
                 >
                   Kabid Keilmuan
@@ -222,43 +224,6 @@ export default function BaseLayout(props) {
             icon={<GoReport size={24} color="white" />}
             text={"Pesan & Masukan"}
           />
-          {/* <ListItem
-            disablePadding
-            sx={{
-              display: "block",
-            }}
-          >
-            <ListItemButton
-              selected
-              sx={{
-                justifyContent: open ? "initial" : "center",
-                px: open ? "10px" : 2.5,
-                py: "5px",
-                borderRadius: "3px",
-                "&.Mui-selected": {
-                  background: "#C21010",
-                  "&:hover": {
-                    backgroundColor: "#C21010",
-                  },
-                },
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 1 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <TiHome size={24} color="white" />
-              </ListItemIcon>
-              <ListItemText sx={{ opacity: open ? 1 : 0 }}>
-                <Typography fontSize={14} fontWeight={"bold"}>
-                  Dashboard
-                </Typography>
-              </ListItemText>
-            </ListItemButton>
-          </ListItem> */}
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

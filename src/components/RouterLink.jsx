@@ -9,7 +9,7 @@ export const RouterLink = (props) => {
         textDecoration: "none",
         fontWeight: "700",
         fontSize: "12px",
-        color: props.color ?? "#C4CDD5"
+        color: props.color ?? "slate-300",
       }}
     >
       {props.children}

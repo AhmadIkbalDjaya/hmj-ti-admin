@@ -9,8 +9,6 @@ import {
   InputBase,
   MenuItem,
   Pagination,
-  PaginationItem,
-  Paper,
   Select,
   Table,
   TableBody,
@@ -21,7 +19,6 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
-import { makeStyles } from "@mui/material/styles";
 import { RouterLink } from "../../components/RouterLink";
 import { MdNavigateNext } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
@@ -52,9 +49,9 @@ export const Article = () => {
         <Typography
           fontSize={12}
           fontWeight={"600"}
-          color={"#637381"}
+          color={"gray-500"}
           border={1.5}
-          borderColor={"#637381"}
+          borderColor={"gray-500"}
           padding={"0px 5px"}
           borderRadius={10}
         >
@@ -66,7 +63,7 @@ export const Article = () => {
           variant="contained"
           startIcon={<FaPlus />}
           size="small"
-          sx={{ background: "#DC0000", textTransform: "none" }}
+          sx={{ background: "primary2", textTransform: "none" }}
         >
           Berita
         </Button>
@@ -75,7 +72,7 @@ export const Article = () => {
           alignItems={"center"}
           gap={1}
           sx={{
-            backgroundColor: "#F4F6F8",
+            backgroundColor: "gray-100",
             width: "200px",
             padding: "0 10px",
             boxSizing: "border-box",
@@ -88,11 +85,11 @@ export const Article = () => {
             placeholder="Cari Berita ..."
             sx={{
               flexGrow: 1,
-              color: "#637381",
+              color: "gray-500",
               fontWeight: "600",
               fontSize: "12px",
               placeholder: {
-                color: "#637381",
+                color: "gray-500",
                 fontWeight: "600",
                 fontSize: "12px",
               },
@@ -109,12 +106,12 @@ export const Article = () => {
       >
         <Table>
           <TableHead>
-            <TableRow sx={{ backgroundColor: "#F4F6F8" }}>
+            <TableRow sx={{ backgroundColor: "gray-100" }}>
               <TableCell padding="checkbox">
                 <Checkbox
                   sx={{
-                    color: "#DFE3E8",
-                    "&.Mui-checked": { color: "#DC0000" },
+                    color: "zinc-200",
+                    "&.Mui-checked": { color: "primary2" },
                   }}
                 ></Checkbox>
               </TableCell>
@@ -135,8 +132,8 @@ export const Article = () => {
               <TableCell padding="checkbox">
                 <Checkbox
                   sx={{
-                    color: "#DFE3E8",
-                    "&.Mui-checked": { color: "#DC0000" },
+                    color: "zinc-200",
+                    "&.Mui-checked": { color: "primary2" },
                   }}
                 ></Checkbox>
               </TableCell>
@@ -175,23 +172,23 @@ export const Article = () => {
       </TableContainer>
       <Box display={"flex"} justifyContent={"space-between"}>
         <Box display={"flex"} gap={1}>
-          <Typography color={"#637381"} fontWeight={"400"}>
+          <Typography color={"gray-500"} fontWeight={"400"}>
             Tampilkan
           </Typography>
           <FormControl size="small">
             <Select
               value={10}
               style={{ height: "25px" }}
-              sx={{ border: "1px solid #637381" }}
+              sx={{ border: "1px solid gray-500" }}
             >
               <MenuItem value={10}>
-                <Typography color={"#637381"} fontSize={"14px"}>
+                <Typography color={"gray-500"} fontSize={"14px"}>
                   10
                 </Typography>
               </MenuItem>
             </Select>
           </FormControl>
-          <Typography color={"#637381"} fontWeight={"400"}>
+          <Typography color={"gray-500"} fontWeight={"400"}>
             Data
           </Typography>
         </Box>
