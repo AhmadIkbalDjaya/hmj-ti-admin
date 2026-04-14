@@ -21,6 +21,7 @@ import { BsFillPeopleFill } from "react-icons/bs";
 import { GoReport } from "react-icons/go";
 import { DrawerListItem } from "./DrawerListItem";
 import { DrawerOpen } from "../../context/DrawerOpen";
+import { Outlet } from "react-router-dom";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -202,25 +203,25 @@ export default function BaseLayout(props) {
           />
           <DrawerListItem
             open={open}
-            toPage="/article"
+            toPage="/articles"
             icon={<MdArticle size={24} color="white" />}
             text={"Berita & Kegiatan"}
           />
           <DrawerListItem
             open={open}
-            toPage="/business"
+            toPage="/businesses"
             icon={<MdAddBusiness size={24} color="white" />}
             text={"Ekonomi Kreatif"}
           />
           <DrawerListItem
             open={open}
-            toPage="/member"
+            toPage="/members"
             icon={<BsFillPeopleFill size={24} color="white" />}
             text={"Anggota"}
           />
           <DrawerListItem
             open={open}
-            toPage="/complaint"
+            toPage="/complaints"
             icon={<GoReport size={24} color="white" />}
             text={"Pesan & Masukan"}
           />
@@ -228,7 +229,7 @@ export default function BaseLayout(props) {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        {children}
+        <Outlet />
       </Box>
     </Box>
   );

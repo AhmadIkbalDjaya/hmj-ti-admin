@@ -1,15 +1,14 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-export const RouterLink = (props) => {
+export const AppLink = (props) => {
   return (
     <Link
       {...props}
       style={{
         textDecoration: "none",
-        fontWeight: "700",
-        fontSize: "12px",
-        color: props.color ?? "slate-300",
+        fontWeight: props.fontWeight ?? "700",
+        fontSize: props.fontSize ?? "12px",
+        color: props.color ?? "#C4CDD5",
       }}
     >
       {props.children}
