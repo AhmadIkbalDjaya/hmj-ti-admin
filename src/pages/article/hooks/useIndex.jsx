@@ -49,7 +49,9 @@ export const useIndex = () => {
     value: {
       breadcrumbItems,
       articles,
+      loading,
       pagination: paginationProps,
+      search,
       delete: deleteProps,
     },
     func: {

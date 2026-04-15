@@ -25,9 +25,11 @@ export const ArticlePage = () => {
         <TableSearchForm
           placeholder="Cari Berita"
           handleChangeSearch={func.onSearch}
+          defaultValue={value.search}
         />
       </Box>
       <ArticleTable
+        loading={value.loading}
         articles={value.articles}
         pagination={value.pagination}
         handleChangePage={func.handleChangePage}

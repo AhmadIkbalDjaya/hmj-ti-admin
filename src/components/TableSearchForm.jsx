@@ -4,7 +4,9 @@ import { FiSearch } from "react-icons/fi";
 export default function TableSearchForm({
   placeholder = "Cari Data ...",
   handleChangeSearch = () => {},
+  defaultValue = "",
 }) {
+
   return (
     <Box
       display={"flex"}
@@ -24,6 +26,7 @@ export default function TableSearchForm({
         name="search"
         onChange={handleChangeSearch}
         placeholder={placeholder}
+        defaultValue={defaultValue}
         sx={{
           flexGrow: 1,
           color: "gray-500",

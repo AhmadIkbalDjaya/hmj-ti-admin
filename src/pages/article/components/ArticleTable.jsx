@@ -1,5 +1,4 @@
 import {
-  Box,
   Checkbox,
   Table,
   TableBody,
@@ -7,28 +6,34 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
 import {
-  tableCheckboxStyle,
   tableHeadStyle,
+  tableCheckboxStyle,
 } from "../../../styles/tableStyles";
-import { HiOutlineEye } from "react-icons/hi";
-import { TbEdit } from "react-icons/tb";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { formatDate } from "../../../helpers/dateHelpers";
 import EmptyData from "../../../components/EmptyData";
 import TablePagination from "../../../components/TablePagination";
-import { getLineNumber } from "../../../helpers/tableHelpers.";
+import TableSkeleton from "../../../components/TableSkeleton";
+import ArticleTableRow from "./ArticleTableRow";
+
+const TABLE_HEADERS = [
+  "No",
+  "Judul Berita",
+  "Tanggal Publikasi",
+  "Status",
+  "Slider",
+  "Aksi",
+];
 
 export default function ArticleTable({
   articles = [],
   pagination = {},
+  loading = false,
   handleChangePerpage = () => {},
   handleChangePage = () => {},
   onDeleteData = () => {},
 }) {
-  if (pagination.total === 0) {
+  if (!loading && pagination.total === 0) {
     return <EmptyData message="Tidak ada berita yang ditemukan" />;
   }
 
@@ -45,74 +50,34 @@ export default function ArticleTable({
           <TableHead>
             <TableRow sx={{ backgroundColor: "gray-100" }}>
               <TableCell padding="checkbox">
-                <Checkbox sx={tableCheckboxStyle}></Checkbox>
+                <Checkbox sx={tableCheckboxStyle} />
               </TableCell>
-              <TableCell align="center" sx={tableHeadStyle}>
-                No
-              </TableCell>
-              <TableCell align="left" sx={tableHeadStyle}>
-                Judul Berita
-              </TableCell>
-              <TableCell sx={tableHeadStyle}>Tanggal Publikasi</TableCell>
-              <TableCell sx={tableHeadStyle}>Status</TableCell>
-              <TableCell sx={tableHeadStyle}>Slider</TableCell>
-              <TableCell sx={tableHeadStyle}>Aksi</TableCell>
+              {TABLE_HEADERS.map((header) => (
+                <TableCell
+                  key={header}
+                  align={header === "No" ? "center" : "left"}
+                  sx={tableHeadStyle}
+                >
+                  {header}
+                </TableCell>
+              ))}
             </TableRow>
           </TableHead>
-          <TableBody>
-            {articles.map((article, index) => {
-              const lineNumber = getLineNumber(pagination, index);
-
-              return (
-                <TableRow key={index}>
-                  <TableCell padding="checkbox">
-                    <Checkbox sx={tableCheckboxStyle}></Checkbox>
-                  </TableCell>
-                  <TableCell
-                    sx={{ padding: "0 10px", fontWeight: "500" }}
-                    align="center"
-                  >
-                    {lineNumber}
-                  </TableCell>
-                  <TableCell sx={{ padding: "0 10px" }}>
-                    <Typography
-                      sx={{
-                        fontWeight: "600",
-                        maxWidth: 300,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        display: "-webkit-box",
-                        WebkitLineClamp: 1,
-                        WebkitBoxOrient: "vertical",
-                      }}
-                    >
-                      {article.title}
-                    </Typography>
-                  </TableCell>
-                  <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
-                    {formatDate(article.publish_at)}
-                  </TableCell>
-                  <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
-                    {article.is_active ? "Active" : "Inactive"}
-                  </TableCell>
-                  <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
-                    {article.is_featured ? "Yes" : "No"}
-                  </TableCell>
-                  <TableCell sx={{ padding: "0 10px" }} align="center">
-                    <Box display={"flex"} alignItems={"center"} columnGap={1}>
-                      <HiOutlineEye size={22} />
-                      <TbEdit size={22} />
-                      <RiDeleteBin6Line
-                        size={22}
-                        onClick={() => onDeleteData(article.id)}
-                        style={{ cursor: "pointer" }}
-                      />
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
+          {loading ? (
+            <TableSkeleton rows={8} columns={7} />
+          ) : (
+            <TableBody>
+              {articles.map((article, index) => (
+                <ArticleTableRow
+                  key={index}
+                  article={article}
+                  pagination={pagination}
+                  index={index}
+                  onDeleteData={onDeleteData}
+                />
+              ))}
+            </TableBody>
+          )}
         </Table>
       </TableContainer>
       <TablePagination

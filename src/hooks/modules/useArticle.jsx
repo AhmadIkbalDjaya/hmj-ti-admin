@@ -7,7 +7,7 @@ import {
 export const useGetArticles = () => {
   const [articles, setArticles] = useState([]);
   const [meta, setMeta] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchArticles = async ({
     page,
@@ -17,6 +17,7 @@ export const useGetArticles = () => {
     is_featured,
   }) => {
     try {
+      setLoading(true);
       const result = await getArticles({
         page,
         limit,

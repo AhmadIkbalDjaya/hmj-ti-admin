@@ -9,13 +9,24 @@ export const usePagination = ({ defPage = 1, defPerpage = 10 } = {}) => {
   });
 
   useEffect(() => {
-    let params = {};
-    if (pagination.page != defPage) params["page"] = pagination.page;
-    if (pagination.perpage != defPerpage) {
-      params["perpage"] = pagination.perpage;
-    }
+    setSearchParams(
+      (prev) => {
+        if (pagination.page != defPage) {
+          prev.set("page", pagination.page);
+        } else {
+          prev.delete("page");
+        }
 
-    setSearchParams(params, { replace: true });
+        if (pagination.perpage != defPerpage) {
+          prev.set("perpage", pagination.perpage);
+        } else {
+          prev.delete("perpage");
+        }
+
+        return prev;
+      },
+      { replace: true },
+    );
   }, [pagination]);
 
   const handleChangePerpage = (e) => {
