@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   getArticles,
+  createArticle as createArticleService,
   deleteArticle as deleteArticleService,
 } from "../../services/articleService";
 
@@ -40,6 +41,40 @@ export const useGetArticles = () => {
     loading,
     fetchArticles,
   };
+};
+
+export const useCreateArticle = ({ onSuccess = () => {} } = {}) => {
+  const [loading, setLoading] = useState();
+  const [errors, setErrors] = useState([]);
+
+  const createArticle = async (form) => {
+    try {
+      setLoading(true);
+      const result = await createArticleService({
+        title: form.title,
+        slug: form.slug,
+        content: form.content,
+        publish_at: form.publish_at,
+        is_active: form.is_active,
+        is_featured: form.is_featured,
+        image: form.image,
+      });
+      onSuccess?.call();
+
+      // show toast success
+    } catch (error) {
+      setErrors([]);
+      if (error?.errors) {
+        setErrors(error.errors);
+      } else {
+        // show toast
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, errors, createArticle };
 };
 
 export const useDeleteArticle = ({ onSuccess = () => {} } = {}) => {

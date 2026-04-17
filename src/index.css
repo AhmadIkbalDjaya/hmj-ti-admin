@@ -3,3 +3,17 @@
 * {
   font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
+
+.filepond--panel-root {
+  background-color: #F4F6F8;
+  border: 1.5px dashed #C4CDD5;
+  border-radius: 5px;
+}
+
+.filepond--item {
+  margin: 0;
+}
+
+.filepond--drop-label {
+  min-height: 10em !important;
+}
