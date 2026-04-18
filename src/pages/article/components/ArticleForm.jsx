@@ -1,13 +1,12 @@
 import {
-  Box,
   FormHelperText,
   Grid,
   MenuItem,
   Select,
   TextField,
-  Typography,
 } from "@mui/material";
 import AppInputLabel from "../../../components/input/AppInputLabel";
+import { CardSection } from "../../../components/CardSection";
 
 export default function ArticleForm({
   form = {},
@@ -15,26 +14,8 @@ export default function ArticleForm({
   errors = {},
 }) {
   return (
-    <Box
-      sx={{
-        background: "white",
-        border: ".5px solid",
-        borderColor: "slate-300",
-        borderRadius: "4px",
-      }}
-    >
-      <Box
-        sx={{ p: "15px" }}
-        borderBottom={"1px solid"}
-        borderColor={"slate-300"}
-        display={"flex"}
-        justifyContent={"space-between"}
-      >
-        <Typography variant="body2" sx={{ fontWeight: "600" }}>
-          Informasi Berita
-        </Typography>
-      </Box>
-      <Grid container spacing={2} padding={"15px"}>
+    <CardSection title="Informasi Berita">
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <AppInputLabel label="Judul Berita" required />
           <TextField
@@ -116,6 +97,6 @@ export default function ArticleForm({
           </FormHelperText>
         </Grid>
       </Grid>
-    </Box>
+    </CardSection>
   );
 }
