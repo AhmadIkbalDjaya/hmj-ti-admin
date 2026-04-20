@@ -85,8 +85,8 @@ export const createArticle = async (data) => {
 
 export const updateArticle = async (articleId, data) => {
   try {
-    const response = await apiClient.put(
-      `${API_PREFIX}/${articleId}`,
+    const response = await apiClient.post(
+      `${API_PREFIX}/${articleId}?_method=PUT`,
       buildFormData(data, ARTICLE_FIELDS),
       MULTIPART_CONFIG,
     );

@@ -5,8 +5,6 @@ export const useForm = (initialvalues = {}) => {
 
   const handleChangeForm = (e) => {
     const { name, value, type, files } = e.target;
-    console.log(value);
-    
     if (type == "file") {
       setForm((prev) => ({ ...prev, [name]: files[0] }));
     } else if (type == "rich-editor") {

@@ -5,96 +5,135 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import AppInputLabel from "../../../components/input/AppInputLabel";
 import { CardSection } from "../../../components/CardSection";
+import SkeletonWrapper from "../../../components/SkeletonWrapper";
+import AppInputLabel from "../../../components/input/AppInputLabel";
 
 export default function ArticleForm({
   form = {},
   handleChangeForm = () => {},
   errors = {},
+  loading = false,
+  submitLoading = false,
 }) {
+  // loading = true;
   return (
     <CardSection title="Informasi Berita">
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <AppInputLabel label="Judul Berita" required />
-          <TextField
-            id="title"
-            name="title"
-            type="string"
-            value={form.title}
-            onChange={handleChangeForm}
-            placeholder="Masukkan Judul Berita"
-            fullWidth
-            error={errors.title}
-            helperText={errors.title}
-          />
+          <SkeletonWrapper
+            loading={loading}
+            variant="rectangular"
+            height={32}
+            sx={{ borderRadius: "4px" }}
+          >
+            <TextField
+              id="title"
+              name="title"
+              type="string"
+              value={form.title}
+              onChange={handleChangeForm}
+              placeholder="Masukkan Judul Berita"
+              fullWidth
+              error={errors.title}
+              helperText={errors.title}
+            />
+          </SkeletonWrapper>
         </Grid>
         <Grid item xs={12} sm={6}>
           <AppInputLabel label="Slug" required />
-          <TextField
-            id="slug"
-            name="slug"
-            type="string"
-            value={form.slug}
-            onChange={handleChangeForm}
-            placeholder="Contoh: judul-berita"
-            fullWidth
-            error={errors.slug}
-            helperText={errors.slug}
-          />
+          <SkeletonWrapper
+            loading={loading}
+            variant="rectangular"
+            height={32}
+            sx={{ borderRadius: "4px" }}
+          >
+            <TextField
+              id="slug"
+              name="slug"
+              type="string"
+              value={form.slug}
+              onChange={handleChangeForm}
+              placeholder="Contoh: judul-berita"
+              fullWidth
+              error={errors.slug}
+              helperText={errors.slug}
+            />
+          </SkeletonWrapper>
         </Grid>
         <Grid item xs={12} sm={4}>
           <AppInputLabel label="Tanggal Publikasi" required />
-          <TextField
-            id="publish_at"
-            name="publish_at"
-            type="date"
-            value={form.publish_at}
-            onChange={handleChangeForm}
-            placeholder="Pilih Tanggal Publikasi"
-            fullWidth
-            error={errors.publish_at}
-            helperText={errors.publish_at}
-          />
+          <SkeletonWrapper
+            loading={loading}
+            variant="rectangular"
+            height={32}
+            sx={{ borderRadius: "4px" }}
+          >
+            <TextField
+              id="publish_at"
+              name="publish_at"
+              type="date"
+              value={form.publish_at}
+              onChange={handleChangeForm}
+              placeholder="Pilih Tanggal Publikasi"
+              fullWidth
+              error={errors.publish_at}
+              helperText={errors.publish_at}
+            />
+          </SkeletonWrapper>
         </Grid>
         <Grid item xs={12} sm={4}>
           <AppInputLabel label="Status" required />
-          <Select
-            id="is_active"
-            name="is_active"
-            value={form.is_active}
-            onChange={handleChangeForm}
-            fullWidth
-            displayEmpty
-            error={errors.is_active}
-            defaultValue={1}
+          <SkeletonWrapper
+            loading={loading}
+            variant="rectangular"
+            height={32}
+            sx={{ borderRadius: "4px" }}
           >
-            <MenuItem value={1}>Aktif</MenuItem>
-            <MenuItem value={0}>Non Aktif</MenuItem>
-          </Select>
-          <FormHelperText error={errors.is_active}>
-            {errors.is_active}
-          </FormHelperText>
+            <Select
+              id="is_active"
+              name="is_active"
+              value={form.is_active}
+              onChange={handleChangeForm}
+              fullWidth
+              displayEmpty
+              error={errors.is_active}
+              // defaultValue={1}
+            >
+              <MenuItem value={1}>Aktif</MenuItem>
+              <MenuItem value={0}>Non Aktif</MenuItem>
+            </Select>
+            <FormHelperText error={errors.is_active}>
+              {errors.is_active}
+            </FormHelperText>
+          </SkeletonWrapper>
         </Grid>
         <Grid item xs={12} sm={4}>
           <AppInputLabel label="Unggulan" required />
-          <Select
-            id="is_featured"
-            name="is_featured"
-            value={form.is_featured}
-            onChange={handleChangeForm}
-            fullWidth
-            displayEmpty
-            error={errors.is_featured}
-            defaultValue={0}
+          <SkeletonWrapper
+            loading={loading}
+            variant="rectangular"
+            height={32}
+            sx={{ borderRadius: "4px" }}
           >
-            <MenuItem value={1}>Ya</MenuItem>
-            <MenuItem value={0}>Tidak</MenuItem>
-          </Select>
-          <FormHelperText error={errors.is_featured}>
-            {errors.is_featured}
-          </FormHelperText>
+            <Select
+              id="is_featured"
+              name="is_featured"
+              value={form.is_featured}
+              onChange={handleChangeForm}
+              fullWidth
+              displayEmpty
+              error={errors.is_featured}
+              // defaultValue={0}
+            >
+              <MenuItem value={1}>Ya</MenuItem>
+              <MenuItem value={0}>Tidak</MenuItem>
+            </Select>
+            <FormHelperText error={errors.is_featured}>
+              {errors.is_featured}
+            </FormHelperText>
+          </SkeletonWrapper>
         </Grid>
       </Grid>
     </CardSection>
