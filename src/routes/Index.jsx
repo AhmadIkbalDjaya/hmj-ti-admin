@@ -7,6 +7,7 @@ import { MemberPage } from "../pages/member/Index";
 import { ComplaintPage } from "../pages/complaint/Index";
 import BaseLayout from "../components/base_layout/BaseLayout";
 import EditArticlePage from "../pages/article/Edit";
+import ShowArticlePage from "../pages/article/Show";
 
 export default function AppRoutes() {
   return (
@@ -14,6 +15,7 @@ export default function AppRoutes() {
       <Route path="" element={<BaseLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/articles" element={<ArticlePage />} />
+        <Route path="/articles/:id" element={<ShowArticlePage />} />
         <Route path="/articles/create" element={<CreateArticlePage />} />
         <Route path="/articles/:id/edit" element={<EditArticlePage />} />
         <Route path="/businesses" element={<BusinessPage />} />

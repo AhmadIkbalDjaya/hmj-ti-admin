@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDeleteArticle } from "../../../hooks/modules/useArticle";
 
-export const useDelete = ({ fetchArticles = () => {} } = {}) => {
+export const useDelete = ({ onSuccess = () => {} } = {}) => {
   const [confirmDelete, setConfirmDelete] = useState({
     open: false,
     id: "",
@@ -25,7 +25,7 @@ export const useDelete = ({ fetchArticles = () => {} } = {}) => {
         open: false,
         id: "",
       });
-      fetchArticles();
+      onSuccess?.();
     },
   });
 

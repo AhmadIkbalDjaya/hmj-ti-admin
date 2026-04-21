@@ -54,7 +54,9 @@ export default function ArticleTableRow({
       </TableCell>
       <TableCell sx={{ padding: "0 10px" }} align="center">
         <Box display={"flex"} alignItems={"center"} columnGap={1}>
-          <HiOutlineEye size={22} />
+          <AppLink to={`/articles/${article.id}`}>
+            <HiOutlineEye size={22} color="black" />
+          </AppLink>
           <AppLink to={`/articles/${article.id}/edit`}>
             <TbEdit size={22} color="black" />
           </AppLink>

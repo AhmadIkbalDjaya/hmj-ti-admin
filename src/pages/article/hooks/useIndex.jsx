@@ -43,7 +43,7 @@ export const useIndex = () => {
     total_page: meta?.total_page || 0,
   };
 
-  const deleteProps = useDelete({ fetchArticles: fetchArticlesWithParams });
+  const deleteProps = useDelete({ onSuccess: fetchArticlesWithParams });
 
   return {
     value: {
