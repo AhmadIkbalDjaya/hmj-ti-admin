@@ -6,8 +6,10 @@ import {
   updateArticle,
   deleteArticle as deleteArticleService,
 } from "../../services/articleService";
+import { useSnackbar } from "notistack";
 
 export const useGetArticles = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const [articles, setArticles] = useState([]);
   const [meta, setMeta] = useState();
   const [loading, setLoading] = useState(true);
@@ -32,7 +34,8 @@ export const useGetArticles = () => {
       setMeta(result.meta);
       setLoading(false);
     } catch (error) {
-      // show toast error
+      const message = error?.message ?? "Gagal mengambil data";
+      enqueueSnackbar(message, { variant: "error" });
       setLoading(false);
     }
   };
@@ -46,6 +49,7 @@ export const useGetArticles = () => {
 };
 
 export const useGetArticle = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(true);
   const [article, setArticle] = useState();
 
@@ -58,7 +62,8 @@ export const useGetArticle = () => {
 
       return result.data;
     } catch (error) {
-      // show toast error
+      const message = error?.message ?? "Gagal mengambil data";
+      enqueueSnackbar(message, { variant: "error" });
       setLoading(false);
     }
   };
@@ -71,6 +76,7 @@ export const useGetArticle = () => {
 };
 
 export const useCreateArticle = ({ onSuccess = () => {} } = {}) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState();
   const [errors, setErrors] = useState([]);
 
@@ -88,13 +94,15 @@ export const useCreateArticle = ({ onSuccess = () => {} } = {}) => {
       });
       onSuccess?.call();
 
-      // show toast success
+      const message = result.message ?? "Berita membuat diedit";
+      enqueueSnackbar(message, { variant: "success" });
     } catch (error) {
       setErrors([]);
       if (error?.errors) {
         setErrors(error.errors);
       } else {
-        // show toast
+        const message = error?.message ?? "Gagal membuat berita";
+        enqueueSnackbar(message, { variant: "error" });
       }
     } finally {
       setLoading(false);
@@ -105,6 +113,7 @@ export const useCreateArticle = ({ onSuccess = () => {} } = {}) => {
 };
 
 export const useEditArticle = ({ onSuccess = () => {} } = {}) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState();
   const [errors, setErrors] = useState([]);
 
@@ -122,13 +131,15 @@ export const useEditArticle = ({ onSuccess = () => {} } = {}) => {
       });
       onSuccess?.call();
 
-      // show toast success
+      const message = result.message ?? "Berita berhasil diedit";
+      enqueueSnackbar(message, { variant: "success" });
     } catch (error) {
       setErrors([]);
       if (error?.errors) {
         setErrors(error.errors);
       } else {
-        // show toast
+        const message = error?.message ?? "Gagal mengedit berita";
+        enqueueSnackbar(message, { variant: "error" });
       }
     } finally {
       setLoading(false);
@@ -139,6 +150,7 @@ export const useEditArticle = ({ onSuccess = () => {} } = {}) => {
 };
 
 export const useDeleteArticle = ({ onSuccess = () => {} } = {}) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
 
   const deleteArticle = async (id) => {
@@ -147,9 +159,11 @@ export const useDeleteArticle = ({ onSuccess = () => {} } = {}) => {
       const result = await deleteArticleService(id);
       onSuccess?.call();
 
-      // show toast success
+      const message = result.message ?? "Berita berhasil dihapus";
+      enqueueSnackbar(message, { variant: "success" });
     } catch (error) {
-      // show toast error
+      const message = error?.message ?? "Gagal menghapus berita";
+      enqueueSnackbar(message, { variant: "error" });
     } finally {
       setLoading(false);
     }
