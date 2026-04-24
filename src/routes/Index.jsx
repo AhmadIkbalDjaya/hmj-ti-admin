@@ -8,6 +8,7 @@ import EditBusinessPage from "../pages/business/Edit";
 import ShowBusinessPage from "../pages/business/Show";
 import { MemberPage } from "../pages/member/Index";
 import { ComplaintPage } from "../pages/complaint/Index";
+import ShowComplaintPage from "../pages/complaint/Show";
 import BaseLayout from "../components/base_layout/BaseLayout";
 import EditArticlePage from "../pages/article/Edit";
 import ShowArticlePage from "../pages/article/Show";
@@ -27,6 +28,7 @@ export default function AppRoutes() {
         <Route path="/businesses/:id/edit" element={<EditBusinessPage />} />
         <Route path="/members" element={<MemberPage />} />
         <Route path="/complaints" element={<ComplaintPage />} />
+        <Route path="/complaints/:id" element={<ShowComplaintPage />} />
       </Route>
     </Routes>
   );

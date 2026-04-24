@@ -1,0 +1,44 @@
+import apiClient from "../config/api";
+import handleApiError from "../helpers/handleApiError";
+import { filterNullParams } from "../helpers/serviceHelpers";
+
+const API_PREFIX = "/user/complaints";
+
+export const getComplaints = async ({
+  page = 1,
+  limit = 10,
+  search = null,
+}) => {
+  try {
+    const params = filterNullParams({
+      page,
+      limit,
+      search,
+    });
+    const response = await apiClient.get(API_PREFIX, { params });
+
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const getComplaint = async (complaintId) => {
+  try {
+    const response = await apiClient.get(`${API_PREFIX}/${complaintId}`);
+
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const deleteComplaint = async (complaintId) => {
+  try {
+    const response = await apiClient.delete(`${API_PREFIX}/${complaintId}`);
+
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
