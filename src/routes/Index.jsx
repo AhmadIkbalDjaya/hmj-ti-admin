@@ -6,7 +6,14 @@ import { BusinessPage } from "../pages/business/Index";
 import { CreateBusinessPage } from "../pages/business/Create";
 import EditBusinessPage from "../pages/business/Edit";
 import ShowBusinessPage from "../pages/business/Show";
+import { PositionPage } from "../pages/position/Index";
+import { CreatePositionPage } from "../pages/position/Create";
+import EditPositionPage from "../pages/position/Edit";
+import ShowPositionPage from "../pages/position/Show";
 import { MemberPage } from "../pages/member/Index";
+import { CreateMemberPage } from "../pages/member/Create";
+import EditMemberPage from "../pages/member/Edit";
+import ShowMemberPage from "../pages/member/Show";
 import { ComplaintPage } from "../pages/complaint/Index";
 import ShowComplaintPage from "../pages/complaint/Show";
 import BaseLayout from "../components/base_layout/BaseLayout";
@@ -26,7 +33,14 @@ export default function AppRoutes() {
         <Route path="/businesses/:id" element={<ShowBusinessPage />} />
         <Route path="/businesses/create" element={<CreateBusinessPage />} />
         <Route path="/businesses/:id/edit" element={<EditBusinessPage />} />
+        <Route path="/positions" element={<PositionPage />} />
+        <Route path="/positions/:id" element={<ShowPositionPage />} />
+        <Route path="/positions/create" element={<CreatePositionPage />} />
+        <Route path="/positions/:id/edit" element={<EditPositionPage />} />
         <Route path="/members" element={<MemberPage />} />
+        <Route path="/members/:id" element={<ShowMemberPage />} />
+        <Route path="/members/create" element={<CreateMemberPage />} />
+        <Route path="/members/:id/edit" element={<EditMemberPage />} />
         <Route path="/complaints" element={<ComplaintPage />} />
         <Route path="/complaints/:id" element={<ShowComplaintPage />} />
       </Route>

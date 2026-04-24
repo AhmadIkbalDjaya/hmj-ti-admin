@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import { FiMenu, FiSearch } from "react-icons/fi";
 import { TiHome } from "react-icons/ti";
-import { MdArticle, MdAddBusiness } from "react-icons/md";
+import { MdArticle, MdAddBusiness, MdWorkspaces } from "react-icons/md";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { GoReport } from "react-icons/go";
 import { DrawerListItem } from "./DrawerListItem";
@@ -212,6 +212,12 @@ export default function BaseLayout(props) {
             toPage="/businesses"
             icon={<MdAddBusiness size={24} color="white" />}
             text={"Ekonomi Kreatif"}
+          />
+          <DrawerListItem
+            open={open}
+            toPage="/positions"
+            icon={<MdWorkspaces size={24} color="white" />}
+            text={"Jabatan"}
           />
           <DrawerListItem
             open={open}
