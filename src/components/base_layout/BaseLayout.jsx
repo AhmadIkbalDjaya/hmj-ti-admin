@@ -1,5 +1,8 @@
 import logoHmjTi from "../../assets/hmj-ti.png";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { logout } from "../../services/authService";
 import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -13,8 +16,11 @@ import {
   Container,
   InputBase,
   CssBaseline,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import { FiMenu, FiSearch } from "react-icons/fi";
+import { LuLogOut } from "react-icons/lu";
 import { TiHome } from "react-icons/ti";
 import { MdArticle, MdAddBusiness, MdWorkspaces } from "react-icons/md";
 import { BsFillPeopleFill } from "react-icons/bs";
@@ -92,6 +98,30 @@ const Drawer = styled(MuiDrawer, {
 export default function BaseLayout(props) {
   const { open, setOpen } = useContext(DrawerOpen);
   const { children } = props;
+  const navigate = useNavigate();
+  const { user, clearAuth } = useAuth();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openMenu = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = async () => {
+    handleClose();
+    try {
+      await logout();
+    } catch (error) {
+      // Proceed with logout even if API call fails
+    } finally {
+      clearAuth();
+      navigate("/login", { replace: true });
+    }
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -158,24 +188,60 @@ export default function BaseLayout(props) {
                 />
               </Box>
             </Box>
-            <Box display={"flex"} gap={1}>
+            <Box
+              display={"flex"}
+              gap={1}
+              onClick={handleClick}
+              sx={{ cursor: "pointer" }}
+            >
               <Avatar alt="Remy Sharp" src="" />
               <Box display={{ xs: "none", md: "block" }}>
                 <Typography
                   color="gray-800"
                   sx={{ fontSize: "14px", fontWeight: "bold" }}
                 >
-                  Aidil Ashyari
+                  {user?.username ?? "User"}
                 </Typography>
                 <Typography
                   variant="subtitle2"
                   color={"gray-500"}
                   sx={{ fontSize: "10px", fontWeight: "bold" }}
                 >
-                  Kabid Keilmuan
+                  {user?.email ?? ""}
                 </Typography>
               </Box>
             </Box>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={openMenu}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              sx={{
+                "& .MuiList-root": {
+                  padding: "6px",
+                },
+              }}
+            >
+              <MenuItem onClick={handleLogout} sx={{ padding: "4px 12px" }}>
+                <Box display={"flex"} gap={1} alignItems={"center"} color="red">
+                  <LuLogOut size={20} />
+                  <Typography textAlign="center" fontWeight={600}>
+                    Logout
+                  </Typography>
+                </Box>
+              </MenuItem>
+            </Menu>
           </Toolbar>
         </Container>
       </AppBar>

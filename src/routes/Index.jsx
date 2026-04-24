@@ -19,30 +19,41 @@ import ShowComplaintPage from "../pages/complaint/Show";
 import BaseLayout from "../components/base_layout/BaseLayout";
 import EditArticlePage from "../pages/article/Edit";
 import ShowArticlePage from "../pages/article/Show";
+import LoginPage from "../pages/login/Index";
+import AuthMiddleware from "../components/middleware/AuthMiddleware";
+import GuestMiddleware from "../components/middleware/GuestMiddleware";
 
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="" element={<BaseLayout />}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/articles" element={<ArticlePage />} />
-        <Route path="/articles/:id" element={<ShowArticlePage />} />
-        <Route path="/articles/create" element={<CreateArticlePage />} />
-        <Route path="/articles/:id/edit" element={<EditArticlePage />} />
-        <Route path="/businesses" element={<BusinessPage />} />
-        <Route path="/businesses/:id" element={<ShowBusinessPage />} />
-        <Route path="/businesses/create" element={<CreateBusinessPage />} />
-        <Route path="/businesses/:id/edit" element={<EditBusinessPage />} />
-        <Route path="/positions" element={<PositionPage />} />
-        <Route path="/positions/:id" element={<ShowPositionPage />} />
-        <Route path="/positions/create" element={<CreatePositionPage />} />
-        <Route path="/positions/:id/edit" element={<EditPositionPage />} />
-        <Route path="/members" element={<MemberPage />} />
-        <Route path="/members/:id" element={<ShowMemberPage />} />
-        <Route path="/members/create" element={<CreateMemberPage />} />
-        <Route path="/members/:id/edit" element={<EditMemberPage />} />
-        <Route path="/complaints" element={<ComplaintPage />} />
-        <Route path="/complaints/:id" element={<ShowComplaintPage />} />
+      {/* Guest-only routes */}
+      <Route element={<GuestMiddleware />}>
+        <Route path="/login" element={<LoginPage />} />
+      </Route>
+
+      {/* Authenticated routes */}
+      <Route element={<AuthMiddleware />}>
+        <Route path="" element={<BaseLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/articles" element={<ArticlePage />} />
+          <Route path="/articles/:id" element={<ShowArticlePage />} />
+          <Route path="/articles/create" element={<CreateArticlePage />} />
+          <Route path="/articles/:id/edit" element={<EditArticlePage />} />
+          <Route path="/businesses" element={<BusinessPage />} />
+          <Route path="/businesses/:id" element={<ShowBusinessPage />} />
+          <Route path="/businesses/create" element={<CreateBusinessPage />} />
+          <Route path="/businesses/:id/edit" element={<EditBusinessPage />} />
+          <Route path="/positions" element={<PositionPage />} />
+          <Route path="/positions/:id" element={<ShowPositionPage />} />
+          <Route path="/positions/create" element={<CreatePositionPage />} />
+          <Route path="/positions/:id/edit" element={<EditPositionPage />} />
+          <Route path="/members" element={<MemberPage />} />
+          <Route path="/members/:id" element={<ShowMemberPage />} />
+          <Route path="/members/create" element={<CreateMemberPage />} />
+          <Route path="/members/:id/edit" element={<EditMemberPage />} />
+          <Route path="/complaints" element={<ComplaintPage />} />
+          <Route path="/complaints/:id" element={<ShowComplaintPage />} />
+        </Route>
       </Route>
     </Routes>
   );
