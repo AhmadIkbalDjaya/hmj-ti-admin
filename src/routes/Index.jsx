@@ -3,6 +3,9 @@ import { HomePage } from "../pages/home/Index";
 import { ArticlePage } from "../pages/article/Index";
 import { CreateArticlePage } from "../pages/article/Create";
 import { BusinessPage } from "../pages/business/Index";
+import { CreateBusinessPage } from "../pages/business/Create";
+import EditBusinessPage from "../pages/business/Edit";
+import ShowBusinessPage from "../pages/business/Show";
 import { MemberPage } from "../pages/member/Index";
 import { ComplaintPage } from "../pages/complaint/Index";
 import BaseLayout from "../components/base_layout/BaseLayout";
@@ -19,6 +22,9 @@ export default function AppRoutes() {
         <Route path="/articles/create" element={<CreateArticlePage />} />
         <Route path="/articles/:id/edit" element={<EditArticlePage />} />
         <Route path="/businesses" element={<BusinessPage />} />
+        <Route path="/businesses/:id" element={<ShowBusinessPage />} />
+        <Route path="/businesses/create" element={<CreateBusinessPage />} />
+        <Route path="/businesses/:id/edit" element={<EditBusinessPage />} />
         <Route path="/members" element={<MemberPage />} />
         <Route path="/complaints" element={<ComplaintPage />} />
       </Route>

@@ -5,8 +5,13 @@ export default function ShowPageHeader({
   title,
   onDelete = null,
   articleId = null,
+  itemId = null,
+  editPath = null,
   loading = false,
 }) {
+  const resolvedId = itemId ?? articleId;
+  const resolvedEditPath = editPath ?? (articleId ? `/articles/${articleId}/edit` : null);
+
   return (
     <Box
       display={"flex"}
@@ -19,7 +24,7 @@ export default function ShowPageHeader({
       </Typography>
       {!loading && (
         <Stack direction={"row"} spacing={1}>
-          {articleId && (
+          {resolvedEditPath && (
             <Button
               variant="contained"
               size="small"
@@ -31,7 +36,7 @@ export default function ShowPageHeader({
                   sm: "inherit",
                 },
               }}
-              href={`/articles/${articleId}/edit`}
+              href={resolvedEditPath}
             >
               Edit
             </Button>
@@ -48,7 +53,7 @@ export default function ShowPageHeader({
                   sm: "inherit",
                 },
               }}
-              onClick={() => onDelete(articleId)}
+              onClick={() => onDelete(resolvedId)}
             >
               Delete
             </Button>

@@ -6,24 +6,23 @@ import {
   filterNullParams,
 } from "../helpers/serviceHelpers";
 
-const API_PREFIX = "/user/articles";
+const API_PREFIX = "/user/businesses";
 
-const ARTICLE_FIELDS = [
+const BUSINESS_FIELDS = [
   "title",
   "slug",
-  "publish_at",
-  "content",
-  "is_active",
-  "is_featured",
+  "description",
+  "price",
   "image",
+  "whatsapp",
+  "is_active",
 ];
 
-export const getArticles = async ({
+export const getBusinesses = async ({
   page = 1,
   limit = 10,
   search = null,
   is_active = null,
-  is_featured = null,
 }) => {
   try {
     const params = filterNullParams({
@@ -31,7 +30,6 @@ export const getArticles = async ({
       limit,
       search,
       is_active,
-      is_featured,
     });
     const response = await apiClient.get(API_PREFIX, { params });
 
@@ -41,9 +39,9 @@ export const getArticles = async ({
   }
 };
 
-export const getArticle = async (articleId) => {
+export const getBusiness = async (businessId) => {
   try {
-    const response = await apiClient.get(`${API_PREFIX}/${articleId}`);
+    const response = await apiClient.get(`${API_PREFIX}/${businessId}`);
 
     return response.data;
   } catch (error) {
@@ -51,11 +49,11 @@ export const getArticle = async (articleId) => {
   }
 };
 
-export const createArticle = async (data) => {
+export const createBusiness = async (data) => {
   try {
     const response = await apiClient.post(
       API_PREFIX,
-      buildFormData(data, ARTICLE_FIELDS),
+      buildFormData(data, BUSINESS_FIELDS),
       MULTIPART_CONFIG,
     );
 
@@ -65,11 +63,11 @@ export const createArticle = async (data) => {
   }
 };
 
-export const updateArticle = async (articleId, data) => {
+export const updateBusiness = async (businessId, data) => {
   try {
     const response = await apiClient.post(
-      `${API_PREFIX}/${articleId}?_method=PUT`,
-      buildFormData(data, ARTICLE_FIELDS),
+      `${API_PREFIX}/${businessId}?_method=PUT`,
+      buildFormData(data, BUSINESS_FIELDS),
       MULTIPART_CONFIG,
     );
 
@@ -79,9 +77,9 @@ export const updateArticle = async (articleId, data) => {
   }
 };
 
-export const deleteArticle = async (articleId) => {
+export const deleteBusiness = async (businessId) => {
   try {
-    const response = await apiClient.delete(`${API_PREFIX}/${articleId}`);
+    const response = await apiClient.delete(`${API_PREFIX}/${businessId}`);
 
     return response.data;
   } catch (error) {
