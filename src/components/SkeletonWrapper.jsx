@@ -5,6 +5,7 @@ export default function SkeletonWrapper({
   loading = false,
   rows = 1,
   columns = 1,
+  gridSx = {},
   ...props
 }) {
   if (!loading) {
@@ -12,7 +13,7 @@ export default function SkeletonWrapper({
   }
 
   return (
-    <Grid container spacing={1} columns={columns}>
+    <Grid container spacing={1} columns={columns} sx={gridSx}>
       {Array.from({ length: rows * columns }).map((_, index) => (
         <Grid item key={index} xs={1}>
           <Skeleton {...props} />
