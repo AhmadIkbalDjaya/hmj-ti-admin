@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useGetPositions } from "../../../hooks/modules/usePosition";
 import { usePaginationSearch } from "../../../hooks/usePaginationSearch";
 import { useDelete } from "./useDelete";
+import { useTitle } from "../../../hooks/useTitle";
 
 export const useIndex = () => {
+  useTitle("Jabatan");
   const breadcrumbItems = [
     {
       name: "Dashboard",

@@ -2,8 +2,11 @@ import { useEffect } from "react";
 import { useGetArticles } from "../../../hooks/modules/useArticle";
 import { usePaginationSearch } from "../../../hooks/usePaginationSearch";
 import { useDelete } from "./useDelete";
+import { useTitle } from "../../../hooks/useTitle";
 
 export const useIndex = () => {
+  useTitle("Berita & Kegiatan");
+
   const breadcrumbItems = [
     {
       name: "Dashboard",

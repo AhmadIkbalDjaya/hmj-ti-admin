@@ -5,8 +5,10 @@ import {
   useGetBusiness,
 } from "../../../hooks/modules/useBusiness";
 import { useForm } from "../../../hooks/useForm";
+import { useTitle } from "../../../hooks/useTitle";
 
 export const useEdit = () => {
+  useTitle("Edit Usaha");
   const navigate = useNavigate();
   const { id: businessId } = useParams();
 

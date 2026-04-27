@@ -5,8 +5,10 @@ import {
   useGetArticle,
 } from "../../../hooks/modules/useArticle";
 import { useForm } from "../../../hooks/useForm";
+import { useTitle } from "../../../hooks/useTitle";
 
 export const useEdit = () => {
+  useTitle("Edit Berita & Kegiatan");
   const navigate = useNavigate();
   const { id: articleId } = useParams();
 

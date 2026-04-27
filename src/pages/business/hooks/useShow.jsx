@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetBusiness } from "../../../hooks/modules/useBusiness";
 import { useDelete } from "./useDelete";
+import { useTitle } from "../../../hooks/useTitle";
 
 export const useShow = () => {
+  useTitle("Detail Usaha");
   const navigate = useNavigate();
   const { id: businessId } = useParams();
   const breadcrumbItems = [

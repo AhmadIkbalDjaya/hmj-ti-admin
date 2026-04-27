@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useGetBusinesses } from "../../../hooks/modules/useBusiness";
 import { usePaginationSearch } from "../../../hooks/usePaginationSearch";
 import { useDelete } from "./useDelete";
+import { useTitle } from "../../../hooks/useTitle";
 
 export const useIndex = () => {
+  useTitle("Ekonomi Kreatif");
   const breadcrumbItems = [
     {
       name: "Dashboard",

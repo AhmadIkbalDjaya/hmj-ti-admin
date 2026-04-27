@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetMember } from "../../../hooks/modules/useMember";
 import { useDelete } from "./useDelete";
+import { useTitle } from "../../../hooks/useTitle";
 
 export const useShow = () => {
+  useTitle("Detail Anggota");
   const navigate = useNavigate();
   const { id: memberId } = useParams();
   const breadcrumbItems = [

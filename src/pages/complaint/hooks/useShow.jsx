@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetComplaint } from "../../../hooks/modules/useComplaint";
 import { useDelete } from "./useDelete";
+import { useTitle } from "../../../hooks/useTitle";
 
 export const useShow = () => {
+  useTitle("Detail Pengaduan");
   const navigate = useNavigate();
   const { id: complaintId } = useParams();
   const breadcrumbItems = [

@@ -6,8 +6,10 @@ import {
 } from "../../../hooks/modules/useMember";
 import { useGetPositions } from "../../../hooks/modules/usePosition";
 import { useForm } from "../../../hooks/useForm";
+import { useTitle } from "../../../hooks/useTitle";
 
 export const useEdit = () => {
+  useTitle("Edit Anggota");
   const navigate = useNavigate();
   const { id: memberId } = useParams();
 

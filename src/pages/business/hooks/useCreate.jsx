@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useCreateBusiness } from "../../../hooks/modules/useBusiness";
 import { useForm } from "../../../hooks/useForm";
+import { useTitle } from "../../../hooks/useTitle";
 
 export const useCreate = () => {
+  useTitle("Tambah Usaha");
   const navigate = useNavigate();
   const breadcrumbItems = [
     {

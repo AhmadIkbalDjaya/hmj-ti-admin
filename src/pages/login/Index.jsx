@@ -15,8 +15,10 @@ import backgroundImg from "../../assets/background-gedung.png";
 import { useAuth } from "../../context/AuthContext";
 import { login } from "../../services/authService";
 import { hasError, getErrorMessage } from "../../helpers/errorHelpers";
+import { useTitle } from "../../hooks/useTitle";
 
 export default function LoginPage() {
+  useTitle("Login");
   const navigate = useNavigate();
   const { saveAuth } = useAuth();
 

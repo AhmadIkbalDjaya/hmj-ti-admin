@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useGetComplaints } from "../../../hooks/modules/useComplaint";
 import { usePaginationSearch } from "../../../hooks/usePaginationSearch";
 import { useDelete } from "./useDelete";
+import { useTitle } from "../../../hooks/useTitle";
 
 export const useIndex = () => {
+  useTitle("Pesan & Masukan");
   const breadcrumbItems = [
     {
       name: "Dashboard",

@@ -5,8 +5,10 @@ import {
   useGetPosition,
 } from "../../../hooks/modules/usePosition";
 import { useForm } from "../../../hooks/useForm";
+import { useTitle } from "../../../hooks/useTitle";
 
 export const useEdit = () => {
+  useTitle("Edit Jabatan");
   const navigate = useNavigate();
   const { id: positionId } = useParams();
 

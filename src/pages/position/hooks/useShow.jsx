@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetPosition } from "../../../hooks/modules/usePosition";
 import { useDelete } from "./useDelete";
+import { useTitle } from "../../../hooks/useTitle";
 
 export const useShow = () => {
+  useTitle("Detail Jabatan");
   const navigate = useNavigate();
   const { id: positionId } = useParams();
   const breadcrumbItems = [
