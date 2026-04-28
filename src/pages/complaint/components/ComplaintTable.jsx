@@ -16,13 +16,7 @@ import TablePagination from "../../../components/TablePagination";
 import TableSkeleton from "../../../components/TableSkeleton";
 import ComplaintTableRow from "./ComplaintTableRow";
 
-const TABLE_HEADERS = [
-  "No",
-  "Nama",
-  "Email",
-  "Deskripsi",
-  "Aksi",
-];
+const TABLE_HEADERS = ["No", "Nama", "Email", "Deskripsi", "Aksi"];
 
 export default function ComplaintTable({
   complaints = [],
@@ -31,6 +25,9 @@ export default function ComplaintTable({
   handleChangePerpage = () => {},
   handleChangePage = () => {},
   onDeleteData = () => {},
+  showCheckbox = true,
+  showPagination = true,
+  showDeleteAction = true,
 }) {
   if (!loading && pagination.total === 0) {
     return <EmptyData message="Tidak ada pengaduan yang ditemukan" />;
@@ -48,9 +45,11 @@ export default function ComplaintTable({
         <Table>
           <TableHead>
             <TableRow sx={{ backgroundColor: "gray-100" }}>
-              <TableCell padding="checkbox">
-                <Checkbox sx={tableCheckboxStyle} />
-              </TableCell>
+              {showCheckbox && (
+                <TableCell padding="checkbox">
+                  <Checkbox sx={tableCheckboxStyle} />
+                </TableCell>
+              )}
               {TABLE_HEADERS.map((header) => (
                 <TableCell
                   key={header}
@@ -63,7 +62,7 @@ export default function ComplaintTable({
             </TableRow>
           </TableHead>
           {loading ? (
-            <TableSkeleton rows={8} columns={6} />
+            <TableSkeleton rows={8} columns={showCheckbox ? 6 : 5} />
           ) : (
             <TableBody>
               {complaints.map((complaint, index) => (
@@ -73,17 +72,21 @@ export default function ComplaintTable({
                   pagination={pagination}
                   index={index}
                   onDeleteData={onDeleteData}
+                  showCheckbox={showCheckbox}
+                  showDeleteAction={showDeleteAction}
                 />
               ))}
             </TableBody>
           )}
         </Table>
       </TableContainer>
-      <TablePagination
-        pagination={pagination}
-        handleChangePerpage={handleChangePerpage}
-        handleChangePage={handleChangePage}
-      />
+      {showPagination && (
+        <TablePagination
+          pagination={pagination}
+          handleChangePerpage={handleChangePerpage}
+          handleChangePage={handleChangePage}
+        />
+      )}
     </>
   );
 }

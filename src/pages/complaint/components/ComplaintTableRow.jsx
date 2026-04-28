@@ -1,10 +1,4 @@
-import {
-  Box,
-  Checkbox,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import { HiOutlineEye } from "react-icons/hi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { getLineNumber } from "../../../helpers/tableHelpers";
@@ -16,13 +10,20 @@ export default function ComplaintTableRow({
   pagination,
   index,
   onDeleteData,
+  showCheckbox = true,
+  showDeleteAction = true,
 }) {
   return (
     <TableRow key={index}>
-      <TableCell padding="checkbox">
-        <Checkbox sx={tableCheckboxStyle} />
-      </TableCell>
-      <TableCell sx={{ padding: "0 10px", fontWeight: "500" }} align="center">
+      {showCheckbox && (
+        <TableCell padding="checkbox">
+          <Checkbox sx={tableCheckboxStyle} />
+        </TableCell>
+      )}
+      <TableCell
+        sx={{ padding: "0 10px", fontWeight: "500", height: "42px" }}
+        align="center"
+      >
         {getLineNumber(pagination, index)}
       </TableCell>
       <TableCell sx={{ padding: "0 10px" }}>
@@ -63,11 +64,13 @@ export default function ComplaintTableRow({
           <AppLink to={`/complaints/${complaint.id}`}>
             <HiOutlineEye size={22} color="black" />
           </AppLink>
-          <RiDeleteBin6Line
-            size={22}
-            onClick={() => onDeleteData(complaint.id)}
-            style={{ cursor: "pointer" }}
-          />
+          {showDeleteAction && (
+            <RiDeleteBin6Line
+              size={22}
+              onClick={() => onDeleteData(complaint.id)}
+              style={{ cursor: "pointer" }}
+            />
+          )}
         </Box>
       </TableCell>
     </TableRow>
