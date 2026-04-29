@@ -20,6 +20,7 @@ import BaseLayout from "../components/base_layout/BaseLayout";
 import EditArticlePage from "../pages/article/Edit";
 import ShowArticlePage from "../pages/article/Show";
 import LoginPage from "../pages/login/Index";
+import NotFoundPage from "../pages/errors/NotFound";
 import AuthMiddleware from "../components/middleware/AuthMiddleware";
 import GuestMiddleware from "../components/middleware/GuestMiddleware";
 
@@ -55,6 +56,8 @@ export default function AppRoutes() {
           <Route path="/complaints/:id" element={<ShowComplaintPage />} />
         </Route>
       </Route>
+
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
