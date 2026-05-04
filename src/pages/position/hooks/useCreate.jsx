@@ -26,7 +26,7 @@ export const useCreate = () => {
     slug: "",
     parent_id: "",
     level: "",
-    order_index: "",
+    order_index: 0,
     is_active: 1,
   };
 

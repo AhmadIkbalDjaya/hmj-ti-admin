@@ -20,7 +20,7 @@ export const useGetPositions = () => {
     search,
     is_active,
     level,
-  }) => {
+  } = {}) => {
     try {
       setLoading(true);
       const result = await getPositions({

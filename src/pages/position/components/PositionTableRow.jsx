@@ -1,15 +1,8 @@
-import {
-  Box,
-  Checkbox,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Box, TableCell, TableRow, Typography } from "@mui/material";
 import { HiOutlineEye } from "react-icons/hi";
 import { TbEdit } from "react-icons/tb";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { getLineNumber } from "../../../helpers/tableHelpers";
-import { tableCheckboxStyle } from "../../../styles/tableStyles";
 import { AppLink } from "../../../components/AppLink";
 
 export default function PositionTableRow({
@@ -20,10 +13,10 @@ export default function PositionTableRow({
 }) {
   return (
     <TableRow key={index}>
-      <TableCell padding="checkbox">
-        <Checkbox sx={tableCheckboxStyle} />
-      </TableCell>
-      <TableCell sx={{ padding: "0 10px", fontWeight: "500" }} align="center">
+      <TableCell
+        sx={{ padding: "0 10px", fontWeight: "500", height: "42px" }}
+        align="center"
+      >
         {getLineNumber(pagination, index)}
       </TableCell>
       <TableCell sx={{ padding: "0 10px" }}>
@@ -42,7 +35,15 @@ export default function PositionTableRow({
         </Typography>
       </TableCell>
       <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
-        {position.level}
+        {position.level === 0
+          ? "Presidium"
+          : position.level === 1
+            ? "Wakil Ketua"
+            : position.level === 2
+              ? "Bidang"
+              : position.level === 3
+                ? "Ketua Bidang"
+                : "Anggota"}
       </TableCell>
       <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
         {position.is_active ? "Active" : "Inactive"}

@@ -36,7 +36,17 @@ export default function ShowPositionPage() {
         />
         <DetailRow
           label="Level"
-          value={value.position?.level}
+          value={
+            value.position?.level === 0
+              ? "Presidium"
+              : value.position?.level === 1
+                ? "Wakil Ketua"
+                : value.position?.level === 2
+                  ? "Bidang"
+                  : value.position?.level === 3
+                    ? "Ketua Bidang"
+                    : "Anggota"
+          }
           loading={value.loading}
         />
         <DetailRow

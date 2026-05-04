@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   FormHelperText,
   Grid,
@@ -8,6 +9,7 @@ import {
 import { CardSection } from "../../../components/CardSection";
 import SkeletonWrapper from "../../../components/SkeletonWrapper";
 import AppInputLabel from "../../../components/input/AppInputLabel";
+import { useGetPositions } from "../../../hooks/modules/usePosition";
 
 export default function PositionForm({
   form = {},
@@ -15,6 +17,12 @@ export default function PositionForm({
   errors = {},
   loading = false,
 }) {
+  const { positions, fetchPositions } = useGetPositions();
+
+  useEffect(() => {
+    fetchPositions();
+  }, []);
+
   return (
     <CardSection title="Informasi Jabatan">
       <Grid container spacing={2}>
@@ -61,24 +69,31 @@ export default function PositionForm({
           </SkeletonWrapper>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <AppInputLabel label="Parent ID" />
+          <AppInputLabel label="Atasan" />
           <SkeletonWrapper
             loading={loading}
             variant="rectangular"
             height={32}
             sx={{ borderRadius: "4px" }}
           >
-            <TextField
+            <Select
               id="parent_id"
               name="parent_id"
-              type="number"
               value={form.parent_id}
               onChange={handleChangeForm}
-              placeholder="Kosongkan jika root"
               fullWidth
+              displayEmpty
               error={errors.parent_id}
-              helperText={errors.parent_id}
-            />
+            >
+              <MenuItem value="" disabled>
+                Pilih Atasan
+              </MenuItem>
+              {positions.map((position) => (
+                <MenuItem key={position.id} value={position.id}>
+                  {position.name}
+                </MenuItem>
+              ))}
+            </Select>
           </SkeletonWrapper>
         </Grid>
         <Grid item xs={12} sm={4}>
@@ -89,21 +104,33 @@ export default function PositionForm({
             height={32}
             sx={{ borderRadius: "4px" }}
           >
-            <TextField
+            <Select
               id="level"
               name="level"
-              type="number"
               value={form.level}
               onChange={handleChangeForm}
-              placeholder="Masukkan Level"
               fullWidth
+              displayEmpty
               error={errors.level}
-              helperText={errors.level}
-            />
+            >
+              <MenuItem value="" disabled>
+                Pilih Level
+              </MenuItem>
+              <MenuItem value={0}>Presidium</MenuItem>
+              <MenuItem value={1}>Wakil Ketua</MenuItem>
+              <MenuItem value={2}>Bidang</MenuItem>
+              <MenuItem value={3}>Ketua Bidang</MenuItem>
+              <MenuItem value={4}>Anggota</MenuItem>
+            </Select>
+            <FormHelperText error={errors.level}>{errors.level}</FormHelperText>
           </SkeletonWrapper>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <AppInputLabel label="Urutan" required />
+          <AppInputLabel
+            label="Urutan"
+            required
+            info="Menentukan urutan tampilan (angka lebih kecil muncul pertama)"
+          />
           <SkeletonWrapper
             loading={loading}
             variant="rectangular"

@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -7,22 +6,13 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import {
-  tableHeadStyle,
-  tableCheckboxStyle,
-} from "../../../styles/tableStyles";
+import { tableHeadStyle } from "../../../styles/tableStyles";
 import EmptyData from "../../../components/EmptyData";
 import TablePagination from "../../../components/TablePagination";
 import TableSkeleton from "../../../components/TableSkeleton";
 import PositionTableRow from "./PositionTableRow";
 
-const TABLE_HEADERS = [
-  "No",
-  "Nama Jabatan",
-  "Level",
-  "Status",
-  "Aksi",
-];
+const TABLE_HEADERS = ["No", "Nama Jabatan", "Level", "Status", "Aksi"];
 
 export default function PositionTable({
   positions = [],
@@ -48,9 +38,6 @@ export default function PositionTable({
         <Table>
           <TableHead>
             <TableRow sx={{ backgroundColor: "gray-100" }}>
-              <TableCell padding="checkbox">
-                <Checkbox sx={tableCheckboxStyle} />
-              </TableCell>
               {TABLE_HEADERS.map((header) => (
                 <TableCell
                   key={header}
