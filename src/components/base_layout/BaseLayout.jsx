@@ -1,33 +1,13 @@
-import logoHmjTi from "../../assets/hmj-ti.png";
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
-import { logout } from "../../services/authService";
+import { useContext } from "react";
 import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
-import {
-  Box,
-  Toolbar,
-  List,
-  Typography,
-  IconButton,
-  Avatar,
-  Container,
-  InputBase,
-  CssBaseline,
-  Menu,
-  MenuItem,
-} from "@mui/material";
-import { FiMenu, FiSearch } from "react-icons/fi";
-import { LuLogOut } from "react-icons/lu";
-import { TiHome } from "react-icons/ti";
-import { MdArticle, MdAddBusiness, MdWorkspaces } from "react-icons/md";
-import { BsFillPeopleFill } from "react-icons/bs";
-import { GoReport } from "react-icons/go";
-import { DrawerListItem } from "./DrawerListItem";
+import { Box, CssBaseline } from "@mui/material";
 import { DrawerOpen } from "../../context/DrawerOpen";
 import { Outlet } from "react-router-dom";
+import { TopBar } from "./TopBar";
+import { SideDrawer } from "./SideDrawer";
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -95,32 +75,8 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function BaseLayout(props) {
+export default function BaseLayout() {
   const { open, setOpen } = useContext(DrawerOpen);
-  const { children } = props;
-  const navigate = useNavigate();
-  const { user, clearAuth } = useAuth();
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  const openMenu = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLogout = async () => {
-    handleClose();
-    try {
-      await logout();
-    } catch (error) {
-      // Proceed with logout even if API call fails
-    } finally {
-      clearAuth();
-      navigate("/login", { replace: true });
-    }
-  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -131,119 +87,7 @@ export default function BaseLayout(props) {
           backgroundColor: "white",
         }}
       >
-        <Container maxWidth="xl">
-          <Toolbar
-            disableGutters
-            sx={{
-              justifyContent: "space-between",
-              minHeight: {
-                sm: "0",
-              },
-            }}
-          >
-            <Box display={"flex"}>
-              <IconButton
-                color="gray-600"
-                aria-label="open drawer"
-                onClick={() => setOpen(!open)}
-                edge="start"
-              >
-                <FiMenu />
-              </IconButton>
-              <img src={logoHmjTi} width={100} />
-            </Box>
-            <Box
-              sx={{
-                flexGrow: 1,
-                marginLeft: {
-                  sm: "120px",
-                },
-              }}
-              display={{ xs: "none", sm: "block" }}
-            >
-              <Box
-                display={"flex"}
-                alignItems={"center"}
-                gap={1}
-                sx={{
-                  backgroundColor: "zinc-200",
-                  width: "250px",
-                  padding: "0 10px",
-                  boxSizing: "border-box",
-                  borderRadius: "3px",
-                }}
-              >
-                <FiSearch color="#637381" />
-                <InputBase
-                  placeholder="Cari sesuatu ..."
-                  sx={{
-                    flexGrow: 1,
-                    color: "gray-500",
-                    fontWeight: "bold",
-                    placeholder: {
-                      color: "gray-500",
-                      fontWeight: "bold",
-                    },
-                  }}
-                />
-              </Box>
-            </Box>
-            <Box
-              display={"flex"}
-              gap={1}
-              onClick={handleClick}
-              sx={{ cursor: "pointer" }}
-            >
-              <Avatar alt="Remy Sharp" src="" />
-              <Box display={{ xs: "none", md: "block" }}>
-                <Typography
-                  color="gray-800"
-                  sx={{ fontSize: "14px", fontWeight: "bold" }}
-                >
-                  {user?.username ?? "User"}
-                </Typography>
-                <Typography
-                  variant="subtitle2"
-                  color={"gray-500"}
-                  sx={{ fontSize: "10px", fontWeight: "bold" }}
-                >
-                  {user?.email ?? ""}
-                </Typography>
-              </Box>
-            </Box>
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={openMenu}
-              onClose={handleClose}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              sx={{
-                "& .MuiList-root": {
-                  padding: "6px",
-                },
-              }}
-            >
-              <MenuItem onClick={handleLogout} sx={{ padding: "4px 12px" }}>
-                <Box display={"flex"} gap={1} alignItems={"center"} color="red">
-                  <LuLogOut size={20} />
-                  <Typography textAlign="center" fontWeight={600}>
-                    Logout
-                  </Typography>
-                </Box>
-              </MenuItem>
-            </Menu>
-          </Toolbar>
-        </Container>
+        <TopBar open={open} setOpen={setOpen} />
       </AppBar>
       <Drawer
         variant="permanent"
@@ -255,51 +99,9 @@ export default function BaseLayout(props) {
         }}
       >
         <DrawerHeader />
-        <List
-          sx={{
-            margin: open ? "0 15px" : "0",
-            color: "white",
-          }}
-        >
-          <DrawerListItem
-            open={open}
-            toPage="/"
-            icon={<TiHome size={24} color="white" />}
-            text={"Dashboard"}
-          />
-          <DrawerListItem
-            open={open}
-            toPage="/articles"
-            icon={<MdArticle size={24} color="white" />}
-            text={"Berita & Kegiatan"}
-          />
-          <DrawerListItem
-            open={open}
-            toPage="/businesses"
-            icon={<MdAddBusiness size={24} color="white" />}
-            text={"Ekonomi Kreatif"}
-          />
-          <DrawerListItem
-            open={open}
-            toPage="/positions"
-            icon={<MdWorkspaces size={24} color="white" />}
-            text={"Jabatan"}
-          />
-          <DrawerListItem
-            open={open}
-            toPage="/members"
-            icon={<BsFillPeopleFill size={24} color="white" />}
-            text={"Anggota"}
-          />
-          <DrawerListItem
-            open={open}
-            toPage="/complaints"
-            icon={<GoReport size={24} color="white" />}
-            text={"Pesan & Masukan"}
-          />
-        </List>
+        <SideDrawer open={open} />
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, width: "100%" }}>
         <DrawerHeader />
         <Outlet />
       </Box>

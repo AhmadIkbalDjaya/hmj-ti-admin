@@ -14,7 +14,7 @@ export const HomePage = () => {
       </Typography>
       <SummaryCards summary={value.summary} loading={value.loadingSummary} />
       <Grid container columns={6} spacing={3} alignItems={"start"}>
-        <Grid item md={4}>
+        <Grid item md={4} sx={{ width: "100%" }}>
           <RecentComplaints
             loading={value.loadingComplaints}
             complaints={value.complaints}

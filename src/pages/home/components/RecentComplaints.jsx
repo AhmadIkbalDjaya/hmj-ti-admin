@@ -11,6 +11,7 @@ export const RecentComplaints = ({ loading, complaints, pagination }) => {
         borderColor: "slate-300",
         borderRadius: "4px",
         padding: "8px 16px",
+        width: "100%",
       }}
     >
       <Typography variant={"body"} sx={{ fontWeight: "600" }}>
