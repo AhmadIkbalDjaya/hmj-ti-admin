@@ -13,6 +13,7 @@ import { formatDate } from "../../../helpers/dateHelpers";
 import { getLineNumber } from "../../../helpers/tableHelpers";
 import { tableCheckboxStyle } from "../../../styles/tableStyles";
 import { AppLink } from "../../../components/AppLink";
+import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 
 export default function ArticleTableRow({
   article,
@@ -47,10 +48,34 @@ export default function ArticleTableRow({
         {formatDate(article.publish_at)}
       </TableCell>
       <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
-        {article.is_active ? "Active" : "Inactive"}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {article.is_active ? (
+            <FaCircleCheck color="green" size={18} />
+          ) : (
+            <FaCircleXmark color="red" size={18} />
+          )}
+        </Box>
       </TableCell>
       <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
-        {article.is_featured ? "Yes" : "No"}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {article.is_active ? (
+            <FaCircleCheck color="green" size={18} />
+          ) : (
+            <FaCircleXmark color="red" size={18} />
+          )}
+        </Box>
       </TableCell>
       <TableCell sx={{ padding: "0 10px" }} align="center">
         <Box display={"flex"} alignItems={"center"} columnGap={1}>

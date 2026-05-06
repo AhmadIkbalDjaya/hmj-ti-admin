@@ -4,6 +4,7 @@ import { TbEdit } from "react-icons/tb";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { getLineNumber } from "../../../helpers/tableHelpers";
 import { AppLink } from "../../../components/AppLink";
+import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 
 export default function PositionTableRow({
   position,
@@ -46,7 +47,19 @@ export default function PositionTableRow({
                 : "Anggota"}
       </TableCell>
       <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
-        {position.is_active ? "Active" : "Inactive"}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {position.is_active ? (
+            <FaCircleCheck color="green" size={18} />
+          ) : (
+            <FaCircleXmark color="red" size={18} />
+          )}
+        </Box>
       </TableCell>
       <TableCell sx={{ padding: "0 10px" }} align="center">
         <Box display={"flex"} alignItems={"center"} columnGap={1}>

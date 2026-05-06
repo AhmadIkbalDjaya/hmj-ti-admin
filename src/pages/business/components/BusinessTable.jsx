@@ -16,13 +16,7 @@ import TablePagination from "../../../components/TablePagination";
 import TableSkeleton from "../../../components/TableSkeleton";
 import BusinessTableRow from "./BusinessTableRow";
 
-const TABLE_HEADERS = [
-  "No",
-  "Nama Usaha",
-  "Harga",
-  "Status",
-  "Aksi",
-];
+const TABLE_HEADERS = ["No", "Nama Usaha", "Harga", "Status", "Aksi"];
 
 export default function BusinessTable({
   businesses = [],
@@ -54,7 +48,11 @@ export default function BusinessTable({
               {TABLE_HEADERS.map((header) => (
                 <TableCell
                   key={header}
-                  align={header === "No" ? "center" : "left"}
+                  align={
+                    (header === "No") | (header === "Status")
+                      ? "center"
+                      : "left"
+                  }
                   sx={tableHeadStyle}
                 >
                   {header}

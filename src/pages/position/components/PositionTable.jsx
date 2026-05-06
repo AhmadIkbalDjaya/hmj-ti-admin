@@ -41,7 +41,7 @@ export default function PositionTable({
               {TABLE_HEADERS.map((header) => (
                 <TableCell
                   key={header}
-                  align={header === "No" ? "center" : "left"}
+                  align={header === "No" || header === "Status" ? "center" : "left"}
                   sx={tableHeadStyle}
                 >
                   {header}

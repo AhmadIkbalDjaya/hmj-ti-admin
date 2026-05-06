@@ -1,16 +1,11 @@
-import {
-  Box,
-  Checkbox,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import { HiOutlineEye } from "react-icons/hi";
 import { TbEdit } from "react-icons/tb";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { getLineNumber } from "../../../helpers/tableHelpers";
 import { tableCheckboxStyle } from "../../../styles/tableStyles";
 import { AppLink } from "../../../components/AppLink";
+import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 
 const formatPrice = (price) => {
   if (price == null) return "-";
@@ -54,7 +49,19 @@ export default function BusinessTableRow({
         {formatPrice(business.price)}
       </TableCell>
       <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
-        {business.is_active ? "Active" : "Inactive"}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {business.is_active ? (
+            <FaCircleCheck color="green" size={18} />
+          ) : (
+            <FaCircleXmark color="red" size={18} />
+          )}
+        </Box>
       </TableCell>
       <TableCell sx={{ padding: "0 10px" }} align="center">
         <Box display={"flex"} alignItems={"center"} columnGap={1}>

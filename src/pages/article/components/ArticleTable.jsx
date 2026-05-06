@@ -21,9 +21,11 @@ const TABLE_HEADERS = [
   "Judul Berita",
   "Tanggal Publikasi",
   "Status",
-  "Slider",
+  "Unggulan",
   "Aksi",
 ];
+
+const CENTER_ALIGN_HEADERS = ["No", "Status", "Unggulan"];
 
 export default function ArticleTable({
   articles = [],
@@ -55,7 +57,9 @@ export default function ArticleTable({
               {TABLE_HEADERS.map((header) => (
                 <TableCell
                   key={header}
-                  align={header === "No" ? "center" : "left"}
+                  align={
+                    CENTER_ALIGN_HEADERS.includes(header) ? "center" : "left"
+                  }
                   sx={tableHeadStyle}
                 >
                   {header}
