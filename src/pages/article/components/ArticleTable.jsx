@@ -15,6 +15,7 @@ import EmptyData from "../../../components/EmptyData";
 import TablePagination from "../../../components/TablePagination";
 import TableSkeleton from "../../../components/TableSkeleton";
 import ArticleTableRow from "./ArticleTableRow";
+import TableSelectionBanner from "../../../components/TableSelectionBanner";
 
 const TABLE_HEADERS = [
   "No",
@@ -34,16 +35,32 @@ export default function ArticleTable({
   handleChangePerpage = () => {},
   handleChangePage = () => {},
   onDeleteData = () => {},
+  selection = {},
 }) {
+  const {
+    isPageSelected,
+    togglePage,
+    isRowSelected,
+    toggleRow,
+    isSelectAllRecords,
+    selectedCount,
+  } = selection;
+
   if (!loading && pagination.total === 0) {
     return <EmptyData message="Tidak ada berita yang ditemukan" />;
   }
 
   return (
     <>
+      <TableSelectionBanner
+        selection={{ ...selection, itemsOnPage: articles.length }}
+        pagination={pagination}
+        itemName="berita"
+      />
+
       <TableContainer
         sx={{
-          margin: "20px 0 10px 0",
+          margin: "10px 0 10px 0",
           border: "1px solid #C4CDD5",
           borderRadius: "3px",
         }}
@@ -52,7 +69,14 @@ export default function ArticleTable({
           <TableHead>
             <TableRow sx={{ backgroundColor: "gray-100" }}>
               <TableCell padding="checkbox">
-                <Checkbox sx={tableCheckboxStyle} />
+                <Checkbox
+                  sx={tableCheckboxStyle}
+                  checked={isPageSelected || isSelectAllRecords}
+                  indeterminate={
+                    selectedCount > 0 && !isPageSelected && !isSelectAllRecords
+                  }
+                  onChange={togglePage}
+                />
               </TableCell>
               {TABLE_HEADERS.map((header) => (
                 <TableCell
@@ -73,11 +97,13 @@ export default function ArticleTable({
             <TableBody>
               {articles.map((article, index) => (
                 <ArticleTableRow
-                  key={index}
+                  key={article.id}
                   article={article}
                   pagination={pagination}
                   index={index}
                   onDeleteData={onDeleteData}
+                  isSelected={isRowSelected(article.id)}
+                  onToggle={() => toggleRow(article.id)}
                 />
               ))}
             </TableBody>

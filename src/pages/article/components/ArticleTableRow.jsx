@@ -20,11 +20,17 @@ export default function ArticleTableRow({
   pagination,
   index,
   onDeleteData,
+  isSelected = false,
+  onToggle = () => {},
 }) {
   return (
-    <TableRow key={index}>
+    <TableRow key={index} selected={isSelected}>
       <TableCell padding="checkbox">
-        <Checkbox sx={tableCheckboxStyle} />
+        <Checkbox
+          sx={tableCheckboxStyle}
+          checked={isSelected}
+          onChange={onToggle}
+        />
       </TableCell>
       <TableCell sx={{ padding: "0 10px", fontWeight: "500" }} align="center">
         {getLineNumber(pagination, index)}
@@ -70,7 +76,7 @@ export default function ArticleTableRow({
             justifyContent: "center",
           }}
         >
-          {article.is_active ? (
+          {article.is_featured ? (
             <FaCircleCheck color="green" size={18} />
           ) : (
             <FaCircleXmark color="red" size={18} />

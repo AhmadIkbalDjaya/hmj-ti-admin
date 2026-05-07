@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useGetArticles } from "../../../hooks/modules/useArticle";
 import { usePaginationSearch } from "../../../hooks/usePaginationSearch";
 import { useDelete } from "./useDelete";
+import { useBulkDelete } from "./useBulkDelete";
+import { useBulkSelection } from "../../../hooks/useBulkSelection";
 import { useTitle } from "../../../hooks/useTitle";
 
 export const useIndex = () => {
@@ -39,6 +41,16 @@ export const useIndex = () => {
     fetchArticlesWithParams();
   }, [pagination.page, pagination.perpage, search]);
 
+  const selection = useBulkSelection({
+    items: articles,
+    totalRecords: meta?.total || 0,
+    filters: {
+      page: pagination.page,
+      perpage: pagination.perpage,
+      search: search,
+    },
+  });
+
   const paginationProps = {
     page: meta?.page || 1,
     perpage: meta?.limit || 10,
@@ -47,6 +59,16 @@ export const useIndex = () => {
   };
 
   const deleteProps = useDelete({ onSuccess: fetchArticlesWithParams });
+  const bulkDeleteProps = useBulkDelete({
+    onSuccess: () => {
+      fetchArticlesWithParams();
+      selection.resetSelection();
+    },
+  });
+
+  const handleBulkDelete = () => {
+    bulkDeleteProps.onOpen(selection.getBulkPayload());
+  };
 
   return {
     value: {
@@ -56,6 +78,11 @@ export const useIndex = () => {
       pagination: paginationProps,
       search,
       delete: deleteProps,
+      bulkDelete: bulkDeleteProps,
+      selection: {
+        ...selection,
+        handleBulkDelete,
+      },
     },
     func: {
       handleChangePage,

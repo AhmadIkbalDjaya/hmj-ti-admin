@@ -88,3 +88,15 @@ export const deleteArticle = async (articleId) => {
     return handleApiError(error);
   }
 };
+
+export const bulkDeleteArticles = async (payload) => {
+  try {
+    const response = await apiClient.delete(`${API_PREFIX}/bulk-destroy`, {
+      data: payload,
+    });
+
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};

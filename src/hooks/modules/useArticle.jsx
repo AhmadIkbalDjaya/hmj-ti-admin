@@ -5,6 +5,7 @@ import {
   createArticle as createArticleService,
   updateArticle,
   deleteArticle as deleteArticleService,
+  bulkDeleteArticles as bulkDeleteArticlesService,
 } from "../../services/articleService";
 import { useSnackbar } from "notistack";
 
@@ -172,5 +173,31 @@ export const useDeleteArticle = ({ onSuccess = () => {} } = {}) => {
   return {
     loading,
     deleteArticle,
+  };
+};
+
+export const useBulkDeleteArticle = ({ onSuccess = () => {} } = {}) => {
+  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
+
+  const bulkDeleteArticles = async (payload) => {
+    try {
+      setLoading(true);
+      const result = await bulkDeleteArticlesService(payload);
+      onSuccess?.call();
+
+      const message = result.message ?? "Berita berhasil dihapus";
+      enqueueSnackbar(message, { variant: "success" });
+    } catch (error) {
+      const message = error?.message ?? "Gagal menghapus berita";
+      enqueueSnackbar(message, { variant: "error" });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    loading,
+    bulkDeleteArticles,
   };
 };
