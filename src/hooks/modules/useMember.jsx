@@ -5,6 +5,7 @@ import {
   createMember as createMemberService,
   updateMember,
   deleteMember as deleteMemberService,
+  bulkDeleteMembers as bulkDeleteMembersService,
 } from "../../services/memberService";
 import { useSnackbar } from "notistack";
 
@@ -14,12 +15,7 @@ export const useGetMembers = () => {
   const [meta, setMeta] = useState();
   const [loading, setLoading] = useState(true);
 
-  const fetchMembers = async ({
-    page,
-    limit,
-    search,
-    position_id,
-  }) => {
+  const fetchMembers = async ({ page, limit, search, position_id }) => {
     try {
       setLoading(true);
       const result = await getMembers({
@@ -162,5 +158,31 @@ export const useDeleteMember = ({ onSuccess = () => {} } = {}) => {
   return {
     loading,
     deleteMember,
+  };
+};
+
+export const useBulkDeleteMember = ({ onSuccess = () => {} } = {}) => {
+  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
+
+  const bulkDeleteMembers = async (payload) => {
+    try {
+      setLoading(true);
+      const result = await bulkDeleteMembersService(payload);
+      onSuccess?.call();
+
+      const message = result.message ?? "Anggota berhasil dihapus";
+      enqueueSnackbar(message, { variant: "success" });
+    } catch (error) {
+      const message = error?.message ?? "Gagal menghapus anggota";
+      enqueueSnackbar(message, { variant: "error" });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    loading,
+    bulkDeleteMembers,
   };
 };

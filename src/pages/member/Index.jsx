@@ -7,6 +7,7 @@ import TableCreateButton from "../../components/TableCreateButton";
 import AppBreadcrumbs from "../../components/elements/AppBreadcrumbs";
 import SectionTitleWithCount from "../../components/SectionTitleWithCount";
 import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
+import BulkDeleteButton from "../../components/BulkDeleteButton";
 
 export const MemberPage = () => {
   const { value, func } = useIndex();
@@ -22,11 +23,17 @@ export const MemberPage = () => {
         <AppLink to={"/members/create"} color="inherit">
           <TableCreateButton text="Anggota" />
         </AppLink>
-        <TableSearchForm
-          placeholder="Cari Anggota"
-          handleChangeSearch={func.onSearch}
-          defaultValue={value.search}
-        />
+        <Box display={"flex"}>
+          <BulkDeleteButton
+            selectedCount={value.selection.selectedCount}
+            handleConfirmDelete={value.selection.handleBulkDelete}
+          />
+          <TableSearchForm
+            placeholder="Cari Anggota"
+            handleChangeSearch={func.onSearch}
+            defaultValue={value.search}
+          />
+        </Box>
       </Box>
       <MemberTable
         loading={value.loading}
@@ -35,11 +42,17 @@ export const MemberPage = () => {
         handleChangePage={func.handleChangePage}
         handleChangePerpage={func.handleChangePerpage}
         onDeleteData={value.delete.onOpen}
+        selection={value.selection}
       />
       <ConfirmDeleteModal
         open={value.delete.open}
         onClose={value.delete.onClose}
         onDelete={value.delete.onDelete}
+      />
+      <ConfirmDeleteModal
+        open={value.bulkDelete.open}
+        onClose={value.bulkDelete.onClose}
+        onDelete={value.bulkDelete.onDelete}
       />
     </>
   );

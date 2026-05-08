@@ -3,6 +3,7 @@ import {
   getComplaints,
   getComplaint as getComplaintService,
   deleteComplaint as deleteComplaintService,
+  bulkDeleteComplaints as bulkDeleteComplaintsService,
 } from "../../services/complaintService";
 import { useSnackbar } from "notistack";
 
@@ -12,11 +13,7 @@ export const useGetComplaints = () => {
   const [meta, setMeta] = useState();
   const [loading, setLoading] = useState(true);
 
-  const fetchComplaints = async ({
-    page,
-    limit,
-    search,
-  }) => {
+  const fetchComplaints = async ({ page, limit, search }) => {
     try {
       setLoading(true);
       const result = await getComplaints({
@@ -92,5 +89,31 @@ export const useDeleteComplaint = ({ onSuccess = () => {} } = {}) => {
   return {
     loading,
     deleteComplaint,
+  };
+};
+
+export const useBulkDeleteComplaint = ({ onSuccess = () => {} } = {}) => {
+  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
+
+  const bulkDeleteComplaints = async (payload) => {
+    try {
+      setLoading(true);
+      const result = await bulkDeleteComplaintsService(payload);
+      onSuccess?.call();
+
+      const message = result.message ?? "Pengaduan berhasil dihapus";
+      enqueueSnackbar(message, { variant: "success" });
+    } catch (error) {
+      const message = error?.message ?? "Gagal menghapus pengaduan";
+      enqueueSnackbar(message, { variant: "error" });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    loading,
+    bulkDeleteComplaints,
   };
 };

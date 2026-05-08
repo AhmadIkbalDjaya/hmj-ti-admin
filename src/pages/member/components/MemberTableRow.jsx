@@ -17,11 +17,17 @@ export default function MemberTableRow({
   pagination,
   index,
   onDeleteData,
+  isSelected = false,
+  onToggle = () => {},
 }) {
   return (
-    <TableRow key={index}>
+    <TableRow key={index} selected={isSelected}>
       <TableCell padding="checkbox">
-        <Checkbox sx={tableCheckboxStyle} />
+        <Checkbox
+          sx={tableCheckboxStyle}
+          checked={isSelected}
+          onChange={onToggle}
+        />
       </TableCell>
       <TableCell sx={{ padding: "0 10px", fontWeight: "500" }} align="center">
         {getLineNumber(pagination, index)}

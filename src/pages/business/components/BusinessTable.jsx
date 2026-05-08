@@ -15,6 +15,7 @@ import EmptyData from "../../../components/EmptyData";
 import TablePagination from "../../../components/TablePagination";
 import TableSkeleton from "../../../components/TableSkeleton";
 import BusinessTableRow from "./BusinessTableRow";
+import TableSelectionBanner from "../../../components/TableSelectionBanner";
 
 const TABLE_HEADERS = ["No", "Nama Usaha", "Harga", "Status", "Aksi"];
 
@@ -25,16 +26,32 @@ export default function BusinessTable({
   handleChangePerpage = () => {},
   handleChangePage = () => {},
   onDeleteData = () => {},
+  selection = {},
 }) {
+  const {
+    isPageSelected,
+    togglePage,
+    isRowSelected,
+    toggleRow,
+    isSelectAllRecords,
+    selectedCount,
+  } = selection;
+
   if (!loading && pagination.total === 0) {
     return <EmptyData message="Tidak ada usaha yang ditemukan" />;
   }
 
   return (
     <>
+      <TableSelectionBanner
+        selection={{ ...selection, itemsOnPage: businesses.length }}
+        pagination={pagination}
+        itemName="usaha"
+      />
+
       <TableContainer
         sx={{
-          margin: "20px 0 10px 0",
+          margin: "10px 0 10px 0",
           border: "1px solid #C4CDD5",
           borderRadius: "3px",
         }}
@@ -43,7 +60,14 @@ export default function BusinessTable({
           <TableHead>
             <TableRow sx={{ backgroundColor: "gray-100" }}>
               <TableCell padding="checkbox">
-                <Checkbox sx={tableCheckboxStyle} />
+                <Checkbox
+                  sx={tableCheckboxStyle}
+                  checked={isPageSelected || isSelectAllRecords}
+                  indeterminate={
+                    selectedCount > 0 && !isPageSelected && !isSelectAllRecords
+                  }
+                  onChange={togglePage}
+                />
               </TableCell>
               {TABLE_HEADERS.map((header) => (
                 <TableCell
@@ -66,11 +90,13 @@ export default function BusinessTable({
             <TableBody>
               {businesses.map((business, index) => (
                 <BusinessTableRow
-                  key={index}
+                  key={business.id}
                   business={business}
                   pagination={pagination}
                   index={index}
                   onDeleteData={onDeleteData}
+                  isSelected={isRowSelected(business.id)}
+                  onToggle={() => toggleRow(business.id)}
                 />
               ))}
             </TableBody>

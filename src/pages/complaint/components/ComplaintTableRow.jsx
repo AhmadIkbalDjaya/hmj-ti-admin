@@ -12,12 +12,18 @@ export default function ComplaintTableRow({
   onDeleteData,
   showCheckbox = true,
   showDeleteAction = true,
+  isSelected = false,
+  onToggle = () => {},
 }) {
   return (
-    <TableRow key={index}>
+    <TableRow key={index} selected={isSelected}>
       {showCheckbox && (
         <TableCell padding="checkbox">
-          <Checkbox sx={tableCheckboxStyle} />
+          <Checkbox
+            sx={tableCheckboxStyle}
+            checked={isSelected}
+            onChange={onToggle}
+          />
         </TableCell>
       )}
       <TableCell

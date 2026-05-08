@@ -42,3 +42,15 @@ export const deleteComplaint = async (complaintId) => {
     return handleApiError(error);
   }
 };
+
+export const bulkDeleteComplaints = async (payload) => {
+  try {
+    const response = await apiClient.delete(`${API_PREFIX}/bulk-destroy`, {
+      data: payload,
+    });
+
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};

@@ -5,6 +5,7 @@ import {
   createBusiness as createBusinessService,
   updateBusiness,
   deleteBusiness as deleteBusinessService,
+  bulkDeleteBusinesses as bulkDeleteBusinessesService,
 } from "../../services/businessService";
 import { useSnackbar } from "notistack";
 
@@ -14,12 +15,7 @@ export const useGetBusinesses = () => {
   const [meta, setMeta] = useState();
   const [loading, setLoading] = useState(true);
 
-  const fetchBusinesses = async ({
-    page,
-    limit,
-    search,
-    is_active,
-  }) => {
+  const fetchBusinesses = async ({ page, limit, search, is_active }) => {
     try {
       setLoading(true);
       const result = await getBusinesses({
@@ -170,5 +166,31 @@ export const useDeleteBusiness = ({ onSuccess = () => {} } = {}) => {
   return {
     loading,
     deleteBusiness,
+  };
+};
+
+export const useBulkDeleteBusiness = ({ onSuccess = () => {} } = {}) => {
+  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
+
+  const bulkDeleteBusinesses = async (payload) => {
+    try {
+      setLoading(true);
+      const result = await bulkDeleteBusinessesService(payload);
+      onSuccess?.call();
+
+      const message = result.message ?? "Usaha berhasil dihapus";
+      enqueueSnackbar(message, { variant: "success" });
+    } catch (error) {
+      const message = error?.message ?? "Gagal menghapus usaha";
+      enqueueSnackbar(message, { variant: "error" });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    loading,
+    bulkDeleteBusinesses,
   };
 };

@@ -78,3 +78,15 @@ export const deleteMember = async (memberId) => {
     return handleApiError(error);
   }
 };
+
+export const bulkDeleteMembers = async (payload) => {
+  try {
+    const response = await apiClient.delete(`${API_PREFIX}/bulk-destroy`, {
+      data: payload,
+    });
+
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};

@@ -5,6 +5,7 @@ import TableSearchForm from "../../components/TableSearchForm";
 import AppBreadcrumbs from "../../components/elements/AppBreadcrumbs";
 import SectionTitleWithCount from "../../components/SectionTitleWithCount";
 import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
+import BulkDeleteButton from "../../components/BulkDeleteButton";
 
 export const ComplaintPage = () => {
   const { value, func } = useIndex();
@@ -17,6 +18,10 @@ export const ComplaintPage = () => {
         total={value.pagination.total ?? 0}
       />
       <Box display={"flex"} justifyContent={"flex-end"} my={1}>
+        <BulkDeleteButton
+          selectedCount={value.selection.selectedCount}
+          handleConfirmDelete={value.selection.handleBulkDelete}
+        />
         <TableSearchForm
           placeholder="Cari Pengaduan"
           handleChangeSearch={func.onSearch}
@@ -30,11 +35,17 @@ export const ComplaintPage = () => {
         handleChangePage={func.handleChangePage}
         handleChangePerpage={func.handleChangePerpage}
         onDeleteData={value.delete.onOpen}
+        selection={value.selection}
       />
       <ConfirmDeleteModal
         open={value.delete.open}
         onClose={value.delete.onClose}
         onDelete={value.delete.onDelete}
+      />
+      <ConfirmDeleteModal
+        open={value.bulkDelete.open}
+        onClose={value.bulkDelete.onClose}
+        onDelete={value.bulkDelete.onDelete}
       />
     </>
   );
