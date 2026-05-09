@@ -38,6 +38,7 @@ export const CreateBusinessPage = () => {
           <BusinessForm
             form={value.form}
             handleChangeForm={func.handleChangeForm}
+            handleSlugChange={func.handleSlugChange}
             errors={value.errors}
           />
         </Box>

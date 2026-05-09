@@ -18,6 +18,7 @@ export const CreatePositionPage = () => {
       <PositionForm
         form={value.form}
         handleChangeForm={func.handleChangeForm}
+        handleSlugChange={func.handleSlugChange}
         errors={value.errors}
       />
       <FormSubmitButton

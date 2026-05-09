@@ -50,7 +50,7 @@ export default function PositionTable({
             </TableRow>
           </TableHead>
           {loading ? (
-            <TableSkeleton rows={8} columns={6} />
+            <TableSkeleton rows={8} columns={5} />
           ) : (
             <TableBody>
               {positions.map((position, index) => (

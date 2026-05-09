@@ -12,6 +12,7 @@ import AppInputLabel from "../../../components/input/AppInputLabel";
 export default function BusinessForm({
   form = {},
   handleChangeForm = () => {},
+  handleSlugChange = () => {},
   errors = {},
   loading = false,
   submitLoading = false,
@@ -53,7 +54,7 @@ export default function BusinessForm({
               name="slug"
               type="string"
               value={form.slug}
-              onChange={handleChangeForm}
+              onChange={handleSlugChange}
               placeholder="Contoh: nama-usaha"
               fullWidth
               error={errors.slug}

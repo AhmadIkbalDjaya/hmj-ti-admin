@@ -14,6 +14,7 @@ import { useGetPositions } from "../../../hooks/modules/usePosition";
 export default function PositionForm({
   form = {},
   handleChangeForm = () => {},
+  handleSlugChange = () => {},
   errors = {},
   loading = false,
 }) {
@@ -60,7 +61,7 @@ export default function PositionForm({
               name="slug"
               type="string"
               value={form.slug}
-              onChange={handleChangeForm}
+              onChange={handleSlugChange}
               placeholder="Contoh: ketua-umum"
               fullWidth
               error={errors.slug}

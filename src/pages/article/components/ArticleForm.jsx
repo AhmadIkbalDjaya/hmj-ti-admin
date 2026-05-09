@@ -12,6 +12,7 @@ import AppInputLabel from "../../../components/input/AppInputLabel";
 export default function ArticleForm({
   form = {},
   handleChangeForm = () => {},
+  handleSlugChange = () => {},
   errors = {},
   loading = false,
   submitLoading = false,
@@ -54,7 +55,7 @@ export default function ArticleForm({
               name="slug"
               type="string"
               value={form.slug}
-              onChange={handleChangeForm}
+              onChange={handleSlugChange}
               placeholder="Contoh: judul-berita"
               fullWidth
               error={errors.slug}

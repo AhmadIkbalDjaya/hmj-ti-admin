@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCreateBusiness } from "../../../hooks/modules/useBusiness";
 import { useForm } from "../../../hooks/useForm";
 import { useTitle } from "../../../hooks/useTitle";
+import { generateSlug } from "../../../helpers/stringHelpers";
 
 export const useCreate = () => {
   useTitle("Tambah Usaha");
@@ -31,7 +33,22 @@ export const useCreate = () => {
     image: null,
   };
 
-  const { form, handleChangeForm } = useForm(formInitial);
+  const { form, handleChangeForm, setForm } = useForm(formInitial);
+  const [slugManuallyEdited, setSlugManuallyEdited] = useState(false);
+
+  const handleChangeFormWithSlug = (e) => {
+    const { name, value } = e.target;
+    handleChangeForm(e);
+    if (name === "title" && !slugManuallyEdited) {
+      setForm((prev) => ({ ...prev, slug: generateSlug(value) }));
+    }
+  };
+
+  const handleSlugChange = (e) => {
+    const { value } = e.target;
+    setSlugManuallyEdited(true);
+    setForm((prev) => ({ ...prev, slug: value }));
+  };
 
   const { loading, errors, createBusiness } = useCreateBusiness({
     onSuccess: () => {
@@ -50,7 +67,8 @@ export const useCreate = () => {
       loading,
     },
     func: {
-      handleChangeForm,
+      handleChangeForm: handleChangeFormWithSlug,
+      handleSlugChange,
       handleSubmit,
     },
   };
