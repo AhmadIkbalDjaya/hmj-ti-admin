@@ -54,3 +54,18 @@ export const bulkDeleteComplaints = async (payload) => {
     return handleApiError(error);
   }
 };
+
+export const toggleReadComplaint = async (compaintId, { is_read }) => {
+  try {
+    const response = await apiClient.patch(
+      `${API_PREFIX}/${compaintId}/toggle-read`,
+      {
+        is_read,
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};

@@ -17,7 +17,7 @@ import TableSkeleton from "../../../components/TableSkeleton";
 import ComplaintTableRow from "./ComplaintTableRow";
 import TableSelectionBanner from "../../../components/TableSelectionBanner";
 
-const TABLE_HEADERS = ["No", "Nama", "Email", "Deskripsi", "Aksi"];
+const TABLE_HEADERS = ["No", "Nama", "Email", "Deskripsi", "Status", "Aksi"];
 
 export default function ComplaintTable({
   complaints = [],
@@ -30,6 +30,8 @@ export default function ComplaintTable({
   showPagination = true,
   showDeleteAction = true,
   selection = {},
+  handleToggleRead = () => {},
+  showToggleReadAction = true,
 }) {
   const {
     isPageSelected,
@@ -90,7 +92,7 @@ export default function ComplaintTable({
             </TableRow>
           </TableHead>
           {loading ? (
-            <TableSkeleton rows={8} columns={showCheckbox ? 6 : 5} />
+            <TableSkeleton rows={8} columns={showCheckbox ? 7 : 6} />
           ) : (
             <TableBody>
               {complaints.map((complaint, index) => (
@@ -102,8 +104,12 @@ export default function ComplaintTable({
                   onDeleteData={onDeleteData}
                   showCheckbox={showCheckbox}
                   showDeleteAction={showDeleteAction}
-                  isSelected={isRowSelected ? isRowSelected(complaint.id) : null}
+                  isSelected={
+                    isRowSelected ? isRowSelected(complaint.id) : null
+                  }
                   onToggle={() => toggleRow(complaint.id)}
+                  handleToggleRead={handleToggleRead}
+                  showToggleReadAction={showToggleReadAction}
                 />
               ))}
             </TableBody>

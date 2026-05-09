@@ -47,6 +47,8 @@ export const SummaryCards = ({ summary, loading }) => {
         count={summary?.complaints?.total ?? 0}
         icon={<GoReport size={20} color="#E5340B" />}
         bgIcon="#FDDDD6"
+        subTitle={"Pesan Belum Dibaca"}
+        subTitleCount={summary?.complaints?.unread ?? 0}
       />
     </Box>
   );

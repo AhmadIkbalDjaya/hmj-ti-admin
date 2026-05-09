@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetComplaint } from "../../../hooks/modules/useComplaint";
+import {
+  useGetComplaint,
+  useToggleReadComplaint,
+} from "../../../hooks/modules/useComplaint";
 import { useDelete } from "./useDelete";
 import { useTitle } from "../../../hooks/useTitle";
 
@@ -23,17 +26,47 @@ export const useShow = () => {
     },
   ];
 
-  const { complaint, loading, getComplaint } = useGetComplaint();
+  const { complaint, loading, getComplaint, setComplaint } = useGetComplaint({
+    onSuccess: () => {
+      setComplaint((prev) => {
+        if (!prev?.is_read) {
+          toggleReadComplaint(prev.id, true);
+          return {
+            ...prev,
+            is_read: true,
+          };
+        }
+        return prev;
+      });
+    },
+  });
 
   useEffect(() => {
     getComplaint(complaintId);
-  }, []);
+  }, [complaintId]);
+
+  const { toggleReadComplaint } = useToggleReadComplaint({
+    notification: false,
+  });
+
+  // useEffect(() => {
+  //   if (complaint && !complaint.is_read) {
+  //     toggleReadComplaint(complaint.id, true);
+  //   }
+  // }, [complaint?.id]);
 
   const deleteProps = useDelete({
     onSuccess: () => {
       navigate("/complaints");
     },
   });
+
+  const handleToggleRead = () => {
+    toggleReadComplaint(complaint.id, !complaint.is_read, {
+      notification: true,
+    });
+    complaint.is_read = !complaint.is_read;
+  };
 
   return {
     value: {
@@ -42,6 +75,6 @@ export const useShow = () => {
       breadcrumbItems,
       delete: deleteProps,
     },
-    func: {},
+    func: { handleToggleRead },
   };
 };

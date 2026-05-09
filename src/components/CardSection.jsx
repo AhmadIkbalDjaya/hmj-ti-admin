@@ -1,6 +1,13 @@
 import { Box, FormHelperText, Typography } from "@mui/material";
 
-export const CardSection = ({ title, helperText, required, sx, children }) => {
+export const CardSection = ({
+  title,
+  helperText,
+  required,
+  sx,
+  children,
+  suffixHeader,
+}) => {
   return (
     <Box
       sx={{
@@ -29,6 +36,7 @@ export const CardSection = ({ title, helperText, required, sx, children }) => {
               </FormHelperText>
             )}
           </Box>
+          {suffixHeader}
         </Box>
       )}
       <Box padding={"15px"}>{children}</Box>

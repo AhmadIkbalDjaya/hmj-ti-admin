@@ -62,6 +62,7 @@ export const ComplaintPage = () => {
         handleChangePerpage={func.handleChangePerpage}
         onDeleteData={value.delete.onOpen}
         selection={value.selection}
+        handleToggleRead={func.handleToggleRead}
       />
       <ConfirmDeleteModal
         open={value.delete.open}

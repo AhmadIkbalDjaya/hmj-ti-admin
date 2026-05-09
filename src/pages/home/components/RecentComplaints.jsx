@@ -24,6 +24,7 @@ export const RecentComplaints = ({ loading, complaints, pagination }) => {
         showPagination={false}
         showCheckbox={false}
         showDeleteAction={false}
+        showToggleReadAction={false}
       />
       <Box display="flex" alignItems="center" justifyContent="end">
         <AppLink to="/complaints" style={{ color: "black" }}>

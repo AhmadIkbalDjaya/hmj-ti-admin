@@ -1,5 +1,8 @@
 import { useEffect } from "react";
-import { useGetComplaints } from "../../../hooks/modules/useComplaint";
+import {
+  useGetComplaints,
+  useToggleReadComplaint,
+} from "../../../hooks/modules/useComplaint";
 import { usePaginationSearch } from "../../../hooks/usePaginationSearch";
 import { useDelete } from "./useDelete";
 import { useBulkDelete } from "./useBulkDelete";
@@ -69,6 +72,16 @@ export const useIndex = () => {
     bulkDeleteProps.onOpen(selection.getBulkPayload());
   };
 
+  const { toggleReadComplaint } = useToggleReadComplaint();
+  const handleToggleRead = (id, isRead) => {
+    toggleReadComplaint(id, isRead);
+    complaints.forEach((complaint) => {
+      if (complaint.id === id) {
+        complaint.is_read = isRead;
+      }
+    });
+  };
+
   return {
     value: {
       breadcrumbItems,
@@ -87,6 +100,7 @@ export const useIndex = () => {
       handleChangePage,
       handleChangePerpage,
       onSearch,
+      handleToggleRead,
     },
   };
 };

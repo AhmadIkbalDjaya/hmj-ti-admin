@@ -6,6 +6,7 @@ import { useShow } from "./hooks/useShow";
 import DetailRow from "../../components/DetailRow";
 import { formatDate } from "../../helpers/dateHelpers";
 import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
+import { TableActionToggleRead } from "../../components/table/TableActions";
 
 export default function ShowComplaintPage() {
   const { value, func } = useShow();
@@ -31,7 +32,15 @@ export default function ShowComplaintPage() {
         }}
       >
         <Box flex={{ xs: "100%", md: 1 }}>
-          <CardSection title="Data Pengaduan">
+          <CardSection
+            title="Data Pengaduan"
+            suffixHeader={
+              <TableActionToggleRead
+                isRead={value.complaint?.is_read ?? true}
+                onClick={func.handleToggleRead}
+              />
+            }
+          >
             <DetailRow
               label="Nama"
               value={value.complaint?.name}
@@ -55,6 +64,23 @@ export default function ShowComplaintPage() {
             <DetailRow
               label="Deskripsi"
               value={value.complaint?.description}
+              loading={value.loading}
+            />
+            <DetailRow
+              label="Dibaca pada"
+              value={
+                value.complaint?.read_at
+                  ? formatDate(value.complaint?.read_at, {
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                    })
+                  : formatDate(new Date(), {
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                    })
+              }
               loading={value.loading}
             />
             <DetailRow
