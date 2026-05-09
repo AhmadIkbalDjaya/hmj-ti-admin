@@ -31,11 +31,11 @@ export default function TableSearchForm({
           flexGrow: 1,
           color: "gray-500",
           fontWeight: "600",
-          fontSize: "12px",
+          fontSize: "14px",
           placeholder: {
             color: "gray-500",
             fontWeight: "600",
-            fontSize: "12px",
+            fontSize: "14px",
           },
         }}
       />

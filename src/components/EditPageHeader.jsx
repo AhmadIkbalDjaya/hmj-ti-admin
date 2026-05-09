@@ -1,11 +1,13 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { MdModeEdit } from "react-icons/md";
+import FormSubmitButton from "./FormSubmitButton";
 
 export const EditPageHeader = ({
   title,
   buttonTitle = "Simpan",
   icon = <MdModeEdit />,
   onClick = () => {},
+  loading = false,
 }) => {
   return (
     <Box
@@ -18,21 +20,13 @@ export const EditPageHeader = ({
         {title}
       </Typography>
       {buttonTitle && (
-        <Button
-          variant="contained"
-          startIcon={icon}
-          size="small"
-          sx={{
-            textTransform: "none",
-            display: {
-              xs: "none",
-              sm: "inherit",
-            },
-          }}
+        <FormSubmitButton
+          text={buttonTitle}
+          icon={icon}
           onClick={onClick}
-        >
-          {buttonTitle}
-        </Button>
+          loading={loading}
+          desktopOnly
+        />
       )}
     </Box>
   );

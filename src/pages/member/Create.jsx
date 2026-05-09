@@ -5,6 +5,7 @@ import { CardSection } from "../../components/CardSection";
 import { CreatePageHeader } from "../../components/CreatePageHeader";
 import MemberForm from "./components/MemberForm";
 import FilePondUpload from "../../components/file-pond/Index";
+import FormSubmitButton from "../../components/FormSubmitButton";
 
 export const CreateMemberPage = () => {
   const { value, func } = useCreate();
@@ -15,6 +16,7 @@ export const CreateMemberPage = () => {
       <CreatePageHeader
         title="Tambah Anggota"
         onClick={func.handleSubmit}
+        loading={value.loading}
       />
       <Box
         display={"flex"}
@@ -51,6 +53,13 @@ export const CreateMemberPage = () => {
           />
         </CardSection>
       </Box>
+      <FormSubmitButton
+        onClick={func.handleSubmit}
+        loading={value.loading}
+        mobileOnly
+        fullWidth
+        sx={{ my: 1 }}
+      />
     </>
   );
 };

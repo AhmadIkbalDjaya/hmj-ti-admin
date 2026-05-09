@@ -17,16 +17,42 @@ export const ComplaintPage = () => {
         title="Pengaduan"
         total={value.pagination.total ?? 0}
       />
-      <Box display={"flex"} justifyContent={"flex-end"} my={1}>
-        <BulkDeleteButton
-          selectedCount={value.selection.selectedCount}
-          handleConfirmDelete={value.selection.handleBulkDelete}
-        />
-        <TableSearchForm
-          placeholder="Cari Pengaduan"
-          handleChangeSearch={func.onSearch}
-          defaultValue={value.search}
-        />
+      <Box
+        sx={{
+          my: 1,
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "1fr min-content",
+          },
+          gridTemplateAreas: {
+            xs: `"search" "actions"`,
+            sm: '"actions search"',
+          },
+          rowGap: { xs: 1, sm: 0 },
+          columnGap: 1,
+        }}
+      >
+        <Box
+          sx={{
+            gridArea: "actions",
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <BulkDeleteButton
+            selectedCount={value.selection.selectedCount}
+            handleConfirmDelete={value.selection.handleBulkDelete}
+            sx={{ width: { xs: "100%", sm: "auto" } }}
+          />
+        </Box>
+        <Box sx={{ gridArea: "search" }}>
+          <TableSearchForm
+            placeholder="Cari Pengaduan"
+            handleChangeSearch={func.onSearch}
+            defaultValue={value.search}
+          />
+        </Box>
       </Box>
       <ComplaintTable
         loading={value.loading}

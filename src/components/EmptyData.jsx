@@ -1,7 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import logoEmpty from "../assets/empty.png";
 
-export default function EmptyData({ message = "Tidak Ada Data", icon }) {
+export default function EmptyData({
+  message = "Tidak Ada Data",
+  icon,
+  ...props
+}) {
   return (
     <Box
       display={"flex"}
@@ -9,6 +13,7 @@ export default function EmptyData({ message = "Tidak Ada Data", icon }) {
       alignItems={"center"}
       justifyContent={"center"}
       mt={5}
+      {...props}
     >
       <Box
         component={"img"}

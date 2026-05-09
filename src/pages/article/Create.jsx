@@ -6,6 +6,7 @@ import { CreatePageHeader } from "../../components/CreatePageHeader";
 import ArticleForm from "./components/ArticleForm";
 import RichTextEditor from "../../components/rich-text-editor/Index";
 import FilePondUpload from "../../components/file-pond/Index";
+import FormSubmitButton from "../../components/FormSubmitButton";
 
 export const CreateArticlePage = () => {
   const { value, func } = useCreate();
@@ -16,6 +17,7 @@ export const CreateArticlePage = () => {
       <CreatePageHeader
         title="Tambah Berita & Kegiatan"
         onClick={func.handleSubmit}
+        loading={value.loading}
       />
       <Box
         display={"flex"}
@@ -64,6 +66,13 @@ export const CreateArticlePage = () => {
           />
         </CardSection>
       </Box>
+      <FormSubmitButton
+        onClick={func.handleSubmit}
+        loading={value.loading}
+        mobileOnly
+        fullWidth
+        sx={{ my: 1 }}
+      />
     </>
   );
 };

@@ -6,6 +6,8 @@ import { useEdit } from "./hooks/useEdit";
 import { CardSection } from "../../components/CardSection";
 import FilePondUpload from "../../components/file-pond/Index";
 import SkeletonWrapper from "../../components/SkeletonWrapper";
+import FormSubmitButton from "../../components/FormSubmitButton";
+import { MdModeEdit } from "react-icons/md";
 
 export default function EditBusinessPage() {
   const { value, func } = useEdit();
@@ -16,6 +18,7 @@ export default function EditBusinessPage() {
       <EditPageHeader
         title="Edit Usaha"
         onClick={func.handleSubmit}
+        loading={value.loadingSubmit}
       />
       <Box
         display={"flex"}
@@ -62,6 +65,15 @@ export default function EditBusinessPage() {
           </SkeletonWrapper>
         </CardSection>
       </Box>
+      <FormSubmitButton
+        text="Simpan"
+        icon={<MdModeEdit />}
+        onClick={func.handleSubmit}
+        loading={value.loadingSubmit}
+        mobileOnly
+        fullWidth
+        sx={{ my: 1 }}
+      />
     </>
   );
 }

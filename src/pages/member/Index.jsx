@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import { useIndex } from "./hooks/useIndex";
-import { AppLink } from "../../components/AppLink";
 import MemberTable from "./components/MemberTable";
 import TableSearchForm from "../../components/TableSearchForm";
 import TableCreateButton from "../../components/TableCreateButton";
@@ -19,15 +18,39 @@ export const MemberPage = () => {
         title="Anggota"
         total={value.pagination.total ?? 0}
       />
-      <Box display={"flex"} justifyContent={"space-between"} my={1}>
-        <AppLink to={"/members/create"} color="inherit">
-          <TableCreateButton text="Anggota" />
-        </AppLink>
-        <Box display={"flex"}>
+      <Box
+        sx={{
+          my: 1,
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr 1fr",
+            sm: "min-content 1fr min-content",
+          },
+          gridTemplateAreas: {
+            xs: `"create search" "actions actions"`,
+            sm: '"create actions search"',
+          },
+          rowGap: { xs: 1, sm: 0 },
+          columnGap: 1,
+        }}
+      >
+        <Box sx={{ gridArea: "create" }}>
+          <TableCreateButton text="Anggota" to={"/members/create"} />
+        </Box>
+        <Box
+          sx={{
+            gridArea: "actions",
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
           <BulkDeleteButton
             selectedCount={value.selection.selectedCount}
             handleConfirmDelete={value.selection.handleBulkDelete}
+            sx={{ width: { xs: "100%", sm: "auto" } }}
           />
+        </Box>
+        <Box sx={{ gridArea: "search" }}>
           <TableSearchForm
             placeholder="Cari Anggota"
             handleChangeSearch={func.onSearch}

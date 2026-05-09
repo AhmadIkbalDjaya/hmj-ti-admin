@@ -4,7 +4,7 @@ export function Perpage({ handleChangePerpage = () => {}, value = 10 }) {
   const showItemOptions = [5, 10, 15, 20, 25];
 
   return (
-    <Box display={"flex"} gap={1}>
+    <Box display={"flex"} gap={1} sx={{ mx: { xs: "auto", sm: 0 } }}>
       <Typography color={"gray-500"} fontWeight={"400"}>
         Tampilkan
       </Typography>

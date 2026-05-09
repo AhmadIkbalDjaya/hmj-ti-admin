@@ -101,7 +101,10 @@ export default function BaseLayout() {
         <DrawerHeader />
         <SideDrawer open={open} />
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, width: "100%" }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: { xs: 2, sm: 3 }, width: "100%" }}
+      >
         <DrawerHeader />
         <Outlet />
       </Box>

@@ -5,6 +5,7 @@ import { CardSection } from "../../components/CardSection";
 import { CreatePageHeader } from "../../components/CreatePageHeader";
 import BusinessForm from "./components/BusinessForm";
 import FilePondUpload from "../../components/file-pond/Index";
+import FormSubmitButton from "../../components/FormSubmitButton";
 
 export const CreateBusinessPage = () => {
   const { value, func } = useCreate();
@@ -15,6 +16,7 @@ export const CreateBusinessPage = () => {
       <CreatePageHeader
         title="Tambah Usaha"
         onClick={func.handleSubmit}
+        loading={value.loading}
       />
       <Box
         display={"flex"}
@@ -50,6 +52,13 @@ export const CreateBusinessPage = () => {
           />
         </CardSection>
       </Box>
+      <FormSubmitButton
+        onClick={func.handleSubmit}
+        loading={value.loading}
+        mobileOnly
+        fullWidth
+        sx={{ my: 1 }}
+      />
     </>
   );
 };

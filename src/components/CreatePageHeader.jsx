@@ -1,11 +1,13 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { FaPlus } from "react-icons/fa6";
+import FormSubmitButton from "./FormSubmitButton";
 
 export const CreatePageHeader = ({
   title,
   buttonTitle = "Tambah",
   icon = <FaPlus />,
   onClick = () => {},
+  loading = false,
 }) => {
   return (
     <Box
@@ -18,21 +20,13 @@ export const CreatePageHeader = ({
         {title}
       </Typography>
       {buttonTitle && (
-        <Button
-          variant="contained"
-          startIcon={icon}
-          size="small"
-          sx={{
-            textTransform: "none",
-            display: {
-              xs: "none",
-              sm: "inherit",
-            },
-          }}
+        <FormSubmitButton
+          text={buttonTitle}
+          icon={icon}
           onClick={onClick}
-        >
-          {buttonTitle}
-        </Button>
+          loading={loading}
+          desktopOnly
+        />
       )}
     </Box>
   );

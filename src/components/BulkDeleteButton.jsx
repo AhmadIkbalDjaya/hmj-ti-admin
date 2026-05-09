@@ -4,6 +4,7 @@ import { MdDelete } from "react-icons/md";
 export default function BulkDeleteButton({
   selectedCount = 0,
   handleConfirmDelete = () => {},
+  sx = {},
 }) {
   if (selectedCount <= 0) {
     return null;
@@ -17,11 +18,12 @@ export default function BulkDeleteButton({
       sx={{
         textTransform: "none",
         backgroundColor: "gray-100",
-        mr: "5px",
+        // mr: "5px",
         boxShadow: "0",
         fontWeight: "bold",
         color: "gray-500",
         border: "1px solid #DFE3E8",
+        ...sx,
         "&:hover": {
           backgroundColor: "gray-100",
         },

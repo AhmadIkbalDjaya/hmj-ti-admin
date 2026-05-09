@@ -3,6 +3,7 @@ import { MdOutlineDateRange } from "react-icons/md";
 import { FiExternalLink } from "react-icons/fi";
 import { formatDate } from "../../../helpers/dateHelpers";
 import { AppLink } from "../../../components/AppLink";
+import EmptyData from "../../../components/EmptyData";
 
 export const FeaturedArticles = ({ articles = [], loading = false }) => {
   return (
@@ -27,6 +28,9 @@ export const FeaturedArticles = ({ articles = [], loading = false }) => {
         </Typography>
       </Box>
       <Box>
+        {!loading && articles.length == 0 && (
+          <EmptyData message="Belum ada berita unggulan" mb={5} />
+        )}
         {loading
           ? [...Array(4)].map((_, index) => (
               <Box

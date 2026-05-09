@@ -8,7 +8,12 @@ export default function TablePagination({
   handleChangePage,
 }) {
   return (
-    <Box display={"flex"} justifyContent={"space-between"}>
+    <Box
+      display={"flex"}
+      flexDirection={{ xs: "column-reverse", sm: "row" }}
+      rowGap={{ xs: 2.5, sm: 0 }}
+      justifyContent={"space-between"}
+    >
       <Perpage
         value={pagination.perpage}
         handleChangePerpage={handleChangePerpage}
@@ -20,6 +25,8 @@ export default function TablePagination({
           onChange={handleChangePage}
           size="small"
           shape="rounded"
+          sx={{ mx: { xs: "auto", sm: 0 } }}
+          siblingCount={2}
         />
       </ThemeProvider>
     </Box>
