@@ -77,6 +77,24 @@ const themeColor = createTheme({
         },
       },
     },
+    MuiTooltip: {
+      defaultProps: {
+        // arrow: true,
+        // placement: "top",
+        slotProps: {
+          popper: {
+            modifiers: [
+              {
+                name: "offset",
+                options: {
+                  offset: [0, -12],
+                },
+              },
+            ],
+          },
+        },
+      },
+    },
   },
 });
 export { themeColor };

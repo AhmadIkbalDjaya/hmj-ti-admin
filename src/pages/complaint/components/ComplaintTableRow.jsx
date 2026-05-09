@@ -1,9 +1,10 @@
 import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
-import { HiOutlineEye } from "react-icons/hi";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { getLineNumber } from "../../../helpers/tableHelpers";
 import { tableCheckboxStyle } from "../../../styles/tableStyles";
-import { AppLink } from "../../../components/AppLink";
+import {
+  TableActionDelete,
+  TableActionShow,
+} from "../../../components/table/TableActions";
 
 export default function ComplaintTableRow({
   complaint,
@@ -67,15 +68,9 @@ export default function ComplaintTableRow({
       </TableCell>
       <TableCell sx={{ padding: "0 10px" }} align="center">
         <Box display={"flex"} alignItems={"center"} columnGap={1}>
-          <AppLink to={`/complaints/${complaint.id}`}>
-            <HiOutlineEye size={22} color="black" />
-          </AppLink>
+          <TableActionShow to={`/complaints/${complaint.id}`} />
           {showDeleteAction && (
-            <RiDeleteBin6Line
-              size={22}
-              onClick={() => onDeleteData(complaint.id)}
-              style={{ cursor: "pointer" }}
-            />
+            <TableActionDelete onClick={() => onDeleteData(complaint.id)} />
           )}
         </Box>
       </TableCell>

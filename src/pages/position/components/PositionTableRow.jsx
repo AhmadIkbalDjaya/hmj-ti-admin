@@ -1,10 +1,11 @@
 import { Box, TableCell, TableRow, Typography } from "@mui/material";
-import { HiOutlineEye } from "react-icons/hi";
-import { TbEdit } from "react-icons/tb";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { getLineNumber } from "../../../helpers/tableHelpers";
-import { AppLink } from "../../../components/AppLink";
 import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
+import {
+  TableActionDelete,
+  TableActionEdit,
+  TableActionShow,
+} from "../../../components/table/TableActions";
 
 export default function PositionTableRow({
   position,
@@ -63,17 +64,9 @@ export default function PositionTableRow({
       </TableCell>
       <TableCell sx={{ padding: "0 10px" }} align="center">
         <Box display={"flex"} alignItems={"center"} columnGap={1}>
-          <AppLink to={`/positions/${position.id}`}>
-            <HiOutlineEye size={22} color="black" />
-          </AppLink>
-          <AppLink to={`/positions/${position.id}/edit`}>
-            <TbEdit size={22} color="black" />
-          </AppLink>
-          <RiDeleteBin6Line
-            size={22}
-            onClick={() => onDeleteData(position.id)}
-            style={{ cursor: "pointer" }}
-          />
+          <TableActionShow to={`/positions/${position.id}`} />
+          <TableActionEdit to={`/positions/${position.id}/edit`} />
+          <TableActionDelete onClick={() => onDeleteData(position.id)} />
         </Box>
       </TableCell>
     </TableRow>
