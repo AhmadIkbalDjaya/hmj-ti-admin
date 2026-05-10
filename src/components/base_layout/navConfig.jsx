@@ -2,6 +2,7 @@ import { TiHome } from "react-icons/ti";
 import { MdArticle, MdAddBusiness, MdWorkspaces } from "react-icons/md";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { GoReport } from "react-icons/go";
+import { FaPeopleGroup } from "react-icons/fa6";
 
 export const navConfig = [
   {
@@ -33,5 +34,10 @@ export const navConfig = [
     toPage: "/complaints",
     icon: <GoReport size={24} color="white" />,
     text: "Pesan & Masukan",
+  },
+  {
+    toPage: "/cadres",
+    icon: <FaPeopleGroup size={24} color="white" />,
+    text: "Kader",
   },
 ];

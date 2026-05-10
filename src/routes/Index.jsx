@@ -16,6 +16,10 @@ import EditMemberPage from "../pages/member/Edit";
 import ShowMemberPage from "../pages/member/Show";
 import { ComplaintPage } from "../pages/complaint/Index";
 import ShowComplaintPage from "../pages/complaint/Show";
+import { CadrePage } from "../pages/cadre/Index";
+import { CreateCadrePage } from "../pages/cadre/Create";
+import EditCadrePage from "../pages/cadre/Edit";
+import ShowCadrePage from "../pages/cadre/Show";
 import BaseLayout from "../components/base_layout/BaseLayout";
 import EditArticlePage from "../pages/article/Edit";
 import ShowArticlePage from "../pages/article/Show";
@@ -54,6 +58,10 @@ export default function AppRoutes() {
           <Route path="/members/:id/edit" element={<EditMemberPage />} />
           <Route path="/complaints" element={<ComplaintPage />} />
           <Route path="/complaints/:id" element={<ShowComplaintPage />} />
+          <Route path="/cadres" element={<CadrePage />} />
+          <Route path="/cadres/:id" element={<ShowCadrePage />} />
+          <Route path="/cadres/create" element={<CreateCadrePage />} />
+          <Route path="/cadres/:id/edit" element={<EditCadrePage />} />
         </Route>
       </Route>
 
