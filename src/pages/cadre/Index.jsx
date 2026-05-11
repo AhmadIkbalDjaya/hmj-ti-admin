@@ -1,13 +1,13 @@
-import { Box, FormControl, MenuItem, Select } from "@mui/material";
+import { Box } from "@mui/material";
 import { useIndex } from "./hooks/useIndex";
 import CadreTable from "./components/CadreTable";
+import CadreFilterBar from "./components/CadreFilterBar";
 import TableSearchForm from "../../components/TableSearchForm";
 import TableCreateButton from "../../components/TableCreateButton";
 import AppBreadcrumbs from "../../components/elements/AppBreadcrumbs";
 import SectionTitleWithCount from "../../components/SectionTitleWithCount";
 import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
 import BulkDeleteButton from "../../components/BulkDeleteButton";
-import { CADRE_STATUS_OPTIONS } from "./components/CadreForm";
 
 export const CadrePage = () => {
   const { value, func } = useIndex();
@@ -52,40 +52,10 @@ export const CadrePage = () => {
             handleConfirmDelete={value.selection.handleBulkDelete}
             sx={{ width: { xs: "100%", sm: "auto" } }}
           />
-          <FormControl sx={{ minWidth: 120 }} size="small">
-            <Select
-              id="batch"
-              name="batch"
-              value={value.batch}
-              onChange={func.handleChangeBatch}
-              displayEmpty
-              defaultValue={null}
-            >
-              <MenuItem value={null}>Angkatan</MenuItem>
-              {["2020", "2021", "2022", "2023", "2024", "2025"].map((item) => (
-                <MenuItem key={item} value={item}>
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl sx={{ minWidth: 120 }} size="small">
-            <Select
-              id="status"
-              name="status"
-              value={value.status}
-              onChange={func.handleChangeStatus}
-              displayEmpty
-              defaultValue={null}
-            >
-              <MenuItem value={null}>Status</MenuItem>
-              {CADRE_STATUS_OPTIONS.map((item) => (
-                <MenuItem key={item.value} value={item.value}>
-                  {item.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <CadreFilterBar
+            filters={value.filters}
+            onChangeFilter={func.handleChangeFilter}
+          />
         </Box>
         <Box sx={{ gridArea: "search" }}>
           <TableSearchForm
