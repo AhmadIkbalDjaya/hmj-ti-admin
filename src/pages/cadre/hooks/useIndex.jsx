@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGetCadres } from "../../../hooks/modules/useCadre";
 import { usePaginationSearch } from "../../../hooks/usePaginationSearch";
 import { useDelete } from "./useDelete";
 import { useBulkDelete } from "./useBulkDelete";
 import { useBulkSelection } from "../../../hooks/useBulkSelection";
 import { useTitle } from "../../../hooks/useTitle";
+import { useSearchParams } from "react-router-dom";
 
 export const useIndex = () => {
   useTitle("Kader");
@@ -13,13 +14,55 @@ export const useIndex = () => {
     { name: "Kader", to: "/cadres" },
   ];
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const {
     pagination,
     handleChangePage,
     handleChangePerpage,
     search,
     onSearch,
+    resetPage,
   } = usePaginationSearch();
+
+  const [status, setStatus] = useState(searchParams.get("status") || null);
+  const handleChangeStatus = (e) => {
+    const prevStatus = status;
+    const value = e.target.value;
+    if (value !== prevStatus) {
+      resetPage();
+    }
+    setStatus(value);
+  };
+
+  const [batch, setBatch] = useState(searchParams.get("batch") || null);
+  const handleChangeBatch = (e) => {
+    const prevBatch = batch;
+    const value = e.target.value;
+    if (value !== prevBatch) {
+      resetPage();
+    }
+    setBatch(value);
+  };
+
+  useEffect(() => {
+    setSearchParams(
+      (prev) => {
+        if (status !== null) {
+          prev.set("status", status);
+        } else {
+          prev.delete("status");
+        }
+        if (batch !== null) {
+          prev.set("batch", batch);
+        } else {
+          prev.delete("batch");
+        }
+        return prev;
+      },
+      { replace: true },
+    );
+  }, [status, batch]);
 
   const { cadres, meta, loading, fetchCadres } = useGetCadres();
   const fetchCadresWithParams = () => {
@@ -27,12 +70,14 @@ export const useIndex = () => {
       page: pagination.page,
       limit: pagination.perpage,
       search: search,
+      status: status,
+      batch: batch,
     });
   };
 
   useEffect(() => {
     fetchCadresWithParams();
-  }, [pagination.page, pagination.perpage, search]);
+  }, [pagination.page, pagination.perpage, search, status, batch]);
 
   const selection = useBulkSelection({
     items: cadres,
@@ -76,11 +121,15 @@ export const useIndex = () => {
         ...selection,
         handleBulkDelete,
       },
+      status,
+      batch,
     },
     func: {
       handleChangePage,
       handleChangePerpage,
       onSearch,
+      handleChangeStatus,
+      handleChangeBatch,
     },
   };
 };
