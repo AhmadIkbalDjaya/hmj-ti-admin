@@ -1,5 +1,10 @@
 import { TiHome } from "react-icons/ti";
-import { MdArticle, MdAddBusiness, MdWorkspaces } from "react-icons/md";
+import {
+  MdAddBusiness,
+  MdArticle,
+  MdInfo,
+  MdWorkspaces,
+} from "react-icons/md";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { GoReport } from "react-icons/go";
 import { FaPeopleGroup } from "react-icons/fa6";
@@ -39,5 +44,10 @@ export const navConfig = [
     toPage: "/cadres",
     icon: <FaPeopleGroup size={24} color="white" />,
     text: "Kader",
+  },
+  {
+    toPage: "/organization-profile",
+    icon: <MdInfo size={24} color="white" />,
+    text: "Profil Organisasi",
   },
 ];

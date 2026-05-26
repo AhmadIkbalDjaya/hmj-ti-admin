@@ -20,6 +20,7 @@ import { CadrePage } from "../pages/cadre/Index";
 import { CreateCadrePage } from "../pages/cadre/Create";
 import EditCadrePage from "../pages/cadre/Edit";
 import ShowCadrePage from "../pages/cadre/Show";
+import { OrganizationProfilePage } from "../pages/organization-profile/Index";
 import BaseLayout from "../components/base_layout/BaseLayout";
 import EditArticlePage from "../pages/article/Edit";
 import ShowArticlePage from "../pages/article/Show";
@@ -62,6 +63,10 @@ export default function AppRoutes() {
           <Route path="/cadres/:id" element={<ShowCadrePage />} />
           <Route path="/cadres/create" element={<CreateCadrePage />} />
           <Route path="/cadres/:id/edit" element={<EditCadrePage />} />
+          <Route
+            path="/organization-profile"
+            element={<OrganizationProfilePage />}
+          />
         </Route>
       </Route>
 
