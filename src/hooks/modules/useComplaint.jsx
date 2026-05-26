@@ -14,13 +14,14 @@ export const useGetComplaints = () => {
   const [meta, setMeta] = useState();
   const [loading, setLoading] = useState(true);
 
-  const fetchComplaints = async ({ page, limit, search }) => {
+  const fetchComplaints = async ({ page, limit, search, is_read }) => {
     try {
       setLoading(true);
       const result = await getComplaints({
         page,
         limit,
         search,
+        is_read,
       });
       setComplaints(result.data);
       setMeta(result.meta);

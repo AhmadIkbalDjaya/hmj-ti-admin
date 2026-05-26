@@ -6,6 +6,7 @@ import {
   TableActionShow,
   TableActionToggleRead,
 } from "../../../components/table/TableActions";
+import { formatDate } from "../../../helpers/dateHelpers";
 
 export default function ComplaintTableRow({
   complaint,
@@ -51,9 +52,9 @@ export default function ComplaintTableRow({
           {complaint.name}
         </Typography>
       </TableCell>
-      <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
+      {/* <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
         {complaint.email ?? "-"}
-      </TableCell>
+      </TableCell> */}
       <TableCell sx={{ padding: "0 10px" }}>
         <Typography
           sx={{
@@ -68,6 +69,11 @@ export default function ComplaintTableRow({
         >
           {complaint.description}
         </Typography>
+      </TableCell>
+      <TableCell
+        sx={{ padding: "0 10px", fontWeight: 500, whiteSpace: "nowrap" }}
+      >
+        {complaint.created_at ? formatDate(complaint.created_at) : "-"}
       </TableCell>
       <TableCell sx={{ padding: "0 10px", fontWeight: 500 }}>
         {complaint.is_read ? (

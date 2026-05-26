@@ -8,12 +8,14 @@ export const getComplaints = async ({
   page = 1,
   limit = 10,
   search = null,
+  is_read = null,
 }) => {
   try {
     const params = filterNullParams({
       page,
       limit,
       search,
+      is_read,
     });
     const response = await apiClient.get(API_PREFIX, { params });
 

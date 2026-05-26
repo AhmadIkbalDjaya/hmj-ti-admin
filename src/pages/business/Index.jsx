@@ -7,6 +7,7 @@ import AppBreadcrumbs from "../../components/elements/AppBreadcrumbs";
 import SectionTitleWithCount from "../../components/SectionTitleWithCount";
 import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
 import BulkDeleteButton from "../../components/BulkDeleteButton";
+import { BusinessFilterBar } from "./components/ArticleFilterBar";
 
 export const BusinessPage = () => {
   const { value, func } = useIndex();
@@ -42,12 +43,18 @@ export const BusinessPage = () => {
             gridArea: "actions",
             display: "flex",
             justifyContent: "flex-end",
+            gap: 1,
+            flexDirection: { xs: "row-reverse", sm: "row" },
           }}
         >
           <BulkDeleteButton
             selectedCount={value.selection.selectedCount}
             handleConfirmDelete={value.selection.handleBulkDelete}
             sx={{ width: { xs: "100%", sm: "auto" } }}
+          />
+          <BusinessFilterBar
+            filters={value.filters}
+            onChangeFilter={func.handleChangeFilter}
           />
         </Box>
         <Box sx={{ gridArea: "search" }}>

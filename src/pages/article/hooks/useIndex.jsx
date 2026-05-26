@@ -5,6 +5,7 @@ import { useDelete } from "./useDelete";
 import { useBulkDelete } from "./useBulkDelete";
 import { useBulkSelection } from "../../../hooks/useBulkSelection";
 import { useTitle } from "../../../hooks/useTitle";
+import { useFilters } from "../../../hooks/useFilters";
 
 export const useIndex = () => {
   useTitle("Berita & Kegiatan");
@@ -26,7 +27,13 @@ export const useIndex = () => {
     handleChangePerpage,
     search,
     onSearch,
+    resetPage,
   } = usePaginationSearch();
+
+  const { filters, handleChangeFilter } = useFilters(
+    { is_active: null, is_featured: null },
+    { onFilterChange: resetPage },
+  );
 
   const { articles, meta, loading, fetchArticles } = useGetArticles();
   const fetchArticlesWithParams = () => {
@@ -34,20 +41,20 @@ export const useIndex = () => {
       page: pagination.page,
       limit: pagination.perpage,
       search: search,
+      ...filters,
     });
   };
 
   useEffect(() => {
     fetchArticlesWithParams();
-  }, [pagination.page, pagination.perpage, search]);
+  }, [pagination.page, pagination.perpage, search, filters]);
 
   const selection = useBulkSelection({
     items: articles,
     totalRecords: meta?.total || 0,
     filters: {
-      page: pagination.page,
-      perpage: pagination.perpage,
       search: search,
+      ...filters,
     },
   });
 
@@ -83,11 +90,13 @@ export const useIndex = () => {
         ...selection,
         handleBulkDelete,
       },
+      filters,
     },
     func: {
       handleChangePage,
       handleChangePerpage,
       onSearch,
+      handleChangeFilter,
     },
   };
 };

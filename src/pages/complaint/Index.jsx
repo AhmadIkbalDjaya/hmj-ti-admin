@@ -6,6 +6,7 @@ import AppBreadcrumbs from "../../components/elements/AppBreadcrumbs";
 import SectionTitleWithCount from "../../components/SectionTitleWithCount";
 import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
 import BulkDeleteButton from "../../components/BulkDeleteButton";
+import { ComplaintFilterBar } from "./components/ComplaintFilterBar";
 
 export const ComplaintPage = () => {
   const { value, func } = useIndex();
@@ -38,12 +39,18 @@ export const ComplaintPage = () => {
             gridArea: "actions",
             display: "flex",
             justifyContent: "flex-end",
+            gap: 1,
+            flexDirection: { xs: "row-reverse", sm: "row" },
           }}
         >
           <BulkDeleteButton
             selectedCount={value.selection.selectedCount}
             handleConfirmDelete={value.selection.handleBulkDelete}
             sx={{ width: { xs: "100%", sm: "auto" } }}
+          />
+          <ComplaintFilterBar
+            filters={value.filters}
+            onChangeFilter={func.handleChangeFilter}
           />
         </Box>
         <Box sx={{ gridArea: "search" }}>

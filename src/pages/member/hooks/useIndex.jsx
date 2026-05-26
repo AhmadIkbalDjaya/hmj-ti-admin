@@ -44,8 +44,6 @@ export const useIndex = () => {
     items: members,
     totalRecords: meta?.total || 0,
     filters: {
-      page: pagination.page,
-      perpage: pagination.perpage,
       search: search,
     },
   });

@@ -3,6 +3,7 @@ import { useGetPositions } from "../../../hooks/modules/usePosition";
 import { usePaginationSearch } from "../../../hooks/usePaginationSearch";
 import { useDelete } from "./useDelete";
 import { useTitle } from "../../../hooks/useTitle";
+import { useFilters } from "../../../hooks/useFilters";
 
 export const useIndex = () => {
   useTitle("Jabatan");
@@ -23,7 +24,13 @@ export const useIndex = () => {
     handleChangePerpage,
     search,
     onSearch,
+    resetPage,
   } = usePaginationSearch();
+
+  const { filters, handleChangeFilter } = useFilters(
+    { is_active: null },
+    { onFilterChange: resetPage },
+  );
 
   const { positions, meta, loading, fetchPositions } = useGetPositions();
   const fetchPositionsWithParams = () => {
@@ -31,12 +38,13 @@ export const useIndex = () => {
       page: pagination.page,
       limit: pagination.perpage,
       search: search,
+      ...filters,
     });
   };
 
   useEffect(() => {
     fetchPositionsWithParams();
-  }, [pagination.page, pagination.perpage, search]);
+  }, [pagination.page, pagination.perpage, search, filters]);
 
   const paginationProps = {
     page: meta?.page || 1,
@@ -55,11 +63,13 @@ export const useIndex = () => {
       pagination: paginationProps,
       search,
       delete: deleteProps,
+      filters,
     },
     func: {
       handleChangePage,
       handleChangePerpage,
       onSearch,
+      handleChangeFilter,
     },
   };
 };

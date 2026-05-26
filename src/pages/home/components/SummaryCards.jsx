@@ -40,6 +40,8 @@ export const SummaryCards = ({ summary, loading }) => {
         count={summary?.members?.total ?? 0}
         icon={<BsFillPeopleFill size={20} color="#1FC16B" />}
         bgIcon="#D4F5E2"
+        subTitle="Kader Aktif"
+        subTitleCount={summary?.cadres?.active ?? 0}
       />
       <CountCard
         loading={loading}

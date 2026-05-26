@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import { useIndex } from "./hooks/useIndex";
-import { AppLink } from "../../components/AppLink";
 import ArticleTable from "./components/ArticleTable";
 import TableSearchForm from "../../components/TableSearchForm";
 import TableCreateButton from "../../components/TableCreateButton";
@@ -8,6 +7,7 @@ import AppBreadcrumbs from "../../components/elements/AppBreadcrumbs";
 import SectionTitleWithCount from "../../components/SectionTitleWithCount";
 import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
 import BulkDeleteButton from "../../components/BulkDeleteButton";
+import { ArticleFilterBar } from "./components/ArticleFilterBar";
 
 export const ArticlePage = () => {
   const { value, func } = useIndex();
@@ -42,13 +42,19 @@ export const ArticlePage = () => {
           sx={{
             gridArea: "actions",
             display: "flex",
-            justifyContent: "flex-end",
+            justifyContent: { xs: "flex-end", sm: "flex-end" },
+            gap: 1,
+            flexDirection: { xs: "row-reverse", sm: "row" },
           }}
         >
           <BulkDeleteButton
             selectedCount={value.selection.selectedCount}
             handleConfirmDelete={value.selection.handleBulkDelete}
             sx={{ width: { xs: "100%", sm: "auto" } }}
+          />
+          <ArticleFilterBar
+            filters={value.filters}
+            onChangeFilter={func.handleChangeFilter}
           />
         </Box>
         <Box sx={{ gridArea: "search" }}>

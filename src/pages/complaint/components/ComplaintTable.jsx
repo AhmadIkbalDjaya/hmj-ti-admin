@@ -17,7 +17,15 @@ import TableSkeleton from "../../../components/TableSkeleton";
 import ComplaintTableRow from "./ComplaintTableRow";
 import TableSelectionBanner from "../../../components/TableSelectionBanner";
 
-const TABLE_HEADERS = ["No", "Nama", "Email", "Deskripsi", "Status", "Aksi"];
+const TABLE_HEADERS = [
+  "No",
+  "Nama",
+  // "Email",
+  "Deskripsi",
+  "Tanggal",
+  "Status",
+  "Aksi",
+];
 
 export default function ComplaintTable({
   complaints = [],

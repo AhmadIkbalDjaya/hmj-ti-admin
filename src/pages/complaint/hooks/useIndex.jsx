@@ -8,6 +8,7 @@ import { useDelete } from "./useDelete";
 import { useBulkDelete } from "./useBulkDelete";
 import { useBulkSelection } from "../../../hooks/useBulkSelection";
 import { useTitle } from "../../../hooks/useTitle";
+import { useFilters } from "../../../hooks/useFilters";
 
 export const useIndex = () => {
   useTitle("Pesan & Masukan");
@@ -28,7 +29,13 @@ export const useIndex = () => {
     handleChangePerpage,
     search,
     onSearch,
+    resetPage,
   } = usePaginationSearch();
+
+  const { filters, handleChangeFilter } = useFilters(
+    { is_read: null },
+    { onFilterChange: resetPage },
+  );
 
   const { complaints, meta, loading, fetchComplaints } = useGetComplaints();
   const fetchComplaintsWithParams = () => {
@@ -36,20 +43,20 @@ export const useIndex = () => {
       page: pagination.page,
       limit: pagination.perpage,
       search: search,
+      ...filters,
     });
   };
 
   useEffect(() => {
     fetchComplaintsWithParams();
-  }, [pagination.page, pagination.perpage, search]);
+  }, [pagination.page, pagination.perpage, search, filters]);
 
   const selection = useBulkSelection({
     items: complaints,
     totalRecords: meta?.total || 0,
     filters: {
-      page: pagination.page,
-      perpage: pagination.perpage,
       search: search,
+      ...filters,
     },
   });
 
@@ -95,12 +102,14 @@ export const useIndex = () => {
         ...selection,
         handleBulkDelete,
       },
+      filters,
     },
     func: {
       handleChangePage,
       handleChangePerpage,
       onSearch,
       handleToggleRead,
+      handleChangeFilter,
     },
   };
 };
