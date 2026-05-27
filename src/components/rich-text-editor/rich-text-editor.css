@@ -1,0 +1,35 @@
+.rich-text-editor,
+.rich-text-editor * {
+  box-sizing: border-box;
+}
+
+.rich-text-editor {
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+.rich-text-editor .tiptap,
+.rich-text-editor__content {
+  max-width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.rich-text-editor__content * {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.rich-text-editor__content pre {
+  white-space: pre-wrap;
+}
+
+.rich-text-editor__content img,
+.rich-text-editor__content video,
+.rich-text-editor__content iframe {
+  max-width: 100%;
+  height: auto;
+}
