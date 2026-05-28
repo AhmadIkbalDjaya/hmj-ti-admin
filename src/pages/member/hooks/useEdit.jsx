@@ -34,7 +34,7 @@ export const useEdit = () => {
     if (result) {
       setForm({
         name: result.name,
-        position_id: result.position_id,
+        position_id: result.position?.id,
         photo: null,
       });
     }
