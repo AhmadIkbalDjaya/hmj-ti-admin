@@ -1,15 +1,29 @@
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import {
   Box,
   Toolbar,
   IconButton,
   Container,
-  InputBase,
+  Popover,
 } from "@mui/material";
 import { FiMenu, FiSearch } from "react-icons/fi";
 import logoHmjTi from "../../assets/hmj-ti.png";
 import { UserMenu } from "./UserMenu";
+import { GlobalSearch } from "./GlobalSearch";
 
 export const TopBar = ({ open, setOpen }) => {
+  const [searchAnchorEl, setSearchAnchorEl] = useState(null);
+  const searchOpen = Boolean(searchAnchorEl);
+
+  const openMobileSearch = (event) => {
+    setSearchAnchorEl(event.currentTarget);
+  };
+
+  const closeMobileSearch = () => {
+    setSearchAnchorEl(null);
+  };
+
   return (
     <Container maxWidth="xl">
       <Toolbar
@@ -41,35 +55,47 @@ export const TopBar = ({ open, setOpen }) => {
           }}
           display={{ xs: "none", sm: "block" }}
         >
-          <Box
-            display={"flex"}
-            alignItems={"center"}
-            gap={1}
-            sx={{
-              backgroundColor: "zinc-200",
-              width: "250px",
-              padding: "0 10px",
-              boxSizing: "border-box",
-              borderRadius: "3px",
-            }}
-          >
-            <FiSearch color="#637381" />
-            <InputBase
-              placeholder="Cari sesuatu ..."
-              sx={{
-                flexGrow: 1,
-                color: "gray-500",
-                fontWeight: "bold",
-                placeholder: {
-                  color: "gray-500",
-                  fontWeight: "bold",
-                },
-              }}
-            />
-          </Box>
+          <GlobalSearch />
         </Box>
-        <UserMenu />
+        <Box display="flex" alignItems="center" gap={1}>
+          <IconButton
+            aria-label="buka pencarian"
+            onClick={openMobileSearch}
+            sx={{ display: { xs: "inline-flex", sm: "none" }, color: "#454F5B" }}
+          >
+            <FiSearch />
+          </IconButton>
+          <UserMenu />
+        </Box>
       </Toolbar>
+      <Popover
+        open={searchOpen}
+        anchorEl={searchAnchorEl}
+        onClose={closeMobileSearch}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        PaperProps={{
+          sx: {
+            mt: 1,
+            p: 1,
+            width: "min(360px, calc(100vw - 24px))",
+            overflow: "visible",
+          },
+        }}
+      >
+        <GlobalSearch
+          autoFocus
+          width="100%"
+          placeholder="Cari data ..."
+          onNavigate={closeMobileSearch}
+        />
+      </Popover>
     </Container>
   );
 };

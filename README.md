@@ -16,6 +16,7 @@ The main goal of this project is to provide an efficient, structured, and secure
 
 - Admin login and logout with token-based authentication.
 - Protected dashboard routes and guest-only login route.
+- Global search in the top bar with grouped results and quick navigation across admin modules.
 - Dashboard summary cards for articles, businesses, members, cadres, and complaints.
 - Recent complaint and featured article overview on the dashboard.
 - CRUD management for articles, businesses, positions, members, and cadres.
@@ -71,10 +72,10 @@ Copy-Item .env.example .env
 
 This project uses Vite environment variables. Frontend variables must use the `VITE_` prefix.
 
-| Variable | Description |
-| --- | --- |
-| `VITE_APP_NAME` | Application name displayed or referenced by the admin app. |
-| `VITE_API_URL` | Backend application base URL. The shared API client appends `/api` in `src/config/api.js`. |
+| Variable        | Description                                                                                |
+| --------------- | ------------------------------------------------------------------------------------------ |
+| `VITE_APP_NAME` | Application name displayed or referenced by the admin app.                                 |
+| `VITE_API_URL`  | Backend application base URL. The shared API client appends `/api` in `src/config/api.js`. |
 
 See `.env.example` for the default local values.
 
