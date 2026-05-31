@@ -30,7 +30,6 @@ export const useGetBusinesses = () => {
     } catch (error) {
       const message = error?.message ?? "Gagal mengambil data";
       enqueueSnackbar(message, { variant: "error" });
-      setLoading(false);
     }
   };
 
@@ -58,7 +57,6 @@ export const useGetBusiness = () => {
     } catch (error) {
       const message = error?.message ?? "Gagal mengambil data";
       enqueueSnackbar(message, { variant: "error" });
-      setLoading(false);
     }
   };
 

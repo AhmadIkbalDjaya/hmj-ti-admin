@@ -30,7 +30,6 @@ export const useGetMembers = () => {
     } catch (error) {
       const message = error?.message ?? "Gagal mengambil data";
       enqueueSnackbar(message, { variant: "error" });
-      setLoading(false);
     }
   };
 
@@ -58,7 +57,6 @@ export const useGetMember = () => {
     } catch (error) {
       const message = error?.message ?? "Gagal mengambil data";
       enqueueSnackbar(message, { variant: "error" });
-      setLoading(false);
     }
   };
 

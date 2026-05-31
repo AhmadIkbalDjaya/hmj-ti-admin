@@ -28,23 +28,24 @@ export const useEdit = () => {
   ];
 
   const { loading, getBusiness } = useGetBusiness();
-  const fetchBusiness = async () => {
-    const result = await getBusiness(businessId);
-    if (result) {
-      setForm({
-        title: result.title,
-        slug: result.slug,
-        description: result.description,
-        price: result.price,
-        whatsapp: result.whatsapp,
-        is_active: result.is_active ? 1 : 0,
-        image: null,
-      });
-    }
-  };
   useEffect(() => {
+    const fetchBusiness = async () => {
+      const result = await getBusiness(businessId);
+      if (result) {
+        setForm({
+          title: result.title,
+          slug: result.slug,
+          description: result.description,
+          price: result.price,
+          whatsapp: result.whatsapp,
+          is_active: result.is_active ? 1 : 0,
+          image: null,
+        });
+      }
+    };
+
     fetchBusiness();
-  }, []);
+  }, [businessId]);
 
   const { form, handleChangeForm, setForm } = useForm();
 

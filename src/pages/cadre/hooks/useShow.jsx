@@ -17,8 +17,10 @@ export const useShow = () => {
   const { cadre, loading, getCadre } = useGetCadre();
 
   useEffect(() => {
+    if (!cadreId) return;
+
     getCadre(cadreId);
-  }, []);
+  }, [cadreId]);
 
   const deleteProps = useDelete({
     onSuccess: () => {

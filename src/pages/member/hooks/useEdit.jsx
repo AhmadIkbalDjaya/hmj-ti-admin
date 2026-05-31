@@ -29,19 +29,20 @@ export const useEdit = () => {
   ];
 
   const { loading, getMember } = useGetMember();
-  const fetchMember = async () => {
-    const result = await getMember(memberId);
-    if (result) {
-      setForm({
-        name: result.name,
-        position_id: result.position?.id,
-        photo: null,
-      });
-    }
-  };
   useEffect(() => {
+    const fetchMember = async () => {
+      const result = await getMember(memberId);
+      if (result) {
+        setForm({
+          name: result.name,
+          position_id: result.position?.id,
+          photo: null,
+        });
+      }
+    };
+
     fetchMember();
-  }, []);
+  }, [memberId]);
 
   const { positions, fetchPositions } = useGetPositions();
   useEffect(() => {

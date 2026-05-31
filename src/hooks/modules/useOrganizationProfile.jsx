@@ -15,13 +15,12 @@ export const useGetOrganizationProfile = () => {
       setLoading(true);
       const result = await getOrganizationProfileService();
       setProfile(result.data);
+      setLoading(false);
 
       return result.data;
     } catch (error) {
       const message = error?.message ?? "Gagal mengambil profil organisasi";
       enqueueSnackbar(message, { variant: "error" });
-    } finally {
-      setLoading(false);
     }
   };
 

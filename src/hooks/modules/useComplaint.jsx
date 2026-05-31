@@ -29,7 +29,6 @@ export const useGetComplaints = () => {
     } catch (error) {
       const message = error?.message ?? "Gagal mengambil data";
       enqueueSnackbar(message, { variant: "error" });
-      setLoading(false);
     }
   };
 
@@ -58,7 +57,6 @@ export const useGetComplaint = ({ onSuccess = () => {} } = {}) => {
     } catch (error) {
       const message = error?.message ?? "Gagal mengambil data";
       enqueueSnackbar(message, { variant: "error" });
-      setLoading(false);
     }
   };
 

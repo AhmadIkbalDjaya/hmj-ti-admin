@@ -26,8 +26,10 @@ export const useShow = () => {
   const { member, loading, getMember } = useGetMember();
 
   useEffect(() => {
+    if (!memberId) return;
+
     getMember(memberId);
-  }, []);
+  }, [memberId]);
 
   const deleteProps = useDelete({
     onSuccess: () => {

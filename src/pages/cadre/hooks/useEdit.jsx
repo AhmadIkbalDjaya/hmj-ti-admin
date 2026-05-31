@@ -21,21 +21,22 @@ export const useEdit = () => {
   const { form, handleChangeForm, setForm } = useForm();
 
   const { loading, getCadre } = useGetCadre();
-  const fetchCadre = async () => {
-    const result = await getCadre(cadreId);
-    if (result) {
-      setForm({
-        name: result.name,
-        address: result.address ?? "",
-        batch: result.batch,
-        status: result.status,
-      });
-    }
-  };
 
   useEffect(() => {
+    const fetchCadre = async () => {
+      const result = await getCadre(cadreId);
+      if (result) {
+        setForm({
+          name: result.name,
+          address: result.address ?? "",
+          batch: result.batch,
+          status: result.status,
+        });
+      }
+    };
+
     fetchCadre();
-  }, []);
+  }, [cadreId]);
 
   const {
     loading: loadingSubmit,

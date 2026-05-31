@@ -42,6 +42,8 @@ export const useShow = () => {
   });
 
   useEffect(() => {
+    if (!complaintId) return;
+
     getComplaint(complaintId);
   }, [complaintId]);
 

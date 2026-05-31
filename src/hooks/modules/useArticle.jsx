@@ -37,7 +37,6 @@ export const useGetArticles = () => {
     } catch (error) {
       const message = error?.message ?? "Gagal mengambil data";
       enqueueSnackbar(message, { variant: "error" });
-      setLoading(false);
     }
   };
 
@@ -65,7 +64,6 @@ export const useGetArticle = () => {
     } catch (error) {
       const message = error?.message ?? "Gagal mengambil data";
       enqueueSnackbar(message, { variant: "error" });
-      setLoading(false);
     }
   };
 

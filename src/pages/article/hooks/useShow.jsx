@@ -26,8 +26,10 @@ export const useShow = () => {
   const { article, loading, getArticle } = useGetArticle();
 
   useEffect(() => {
+    if (!articleId) return;
+
     getArticle(articleId);
-  }, []);
+  }, [articleId]);
 
   const deleteProps = useDelete({
     onSuccess: () => {

@@ -28,25 +28,27 @@ export const useEdit = () => {
   ];
 
   const { loading, getArticle } = useGetArticle();
-  const fetchArticle = async () => {
-    const result = await getArticle(articleId);
-    if (result) {
-      setForm({
-        title: result.title,
-        slug: result.slug,
-        publish_at: result.publish_at
-          ? new Date(result.publish_at).toISOString().split("T")[0]
-          : null,
-        is_active: result.is_active ? 1 : 0,
-        is_featured: result.is_featured ? 1 : 0,
-        content: result.content,
-        image: null,
-      });
-    }
-  };
+
   useEffect(() => {
+    const fetchArticle = async () => {
+      const result = await getArticle(articleId);
+      if (result) {
+        setForm({
+          title: result.title,
+          slug: result.slug,
+          publish_at: result.publish_at
+            ? new Date(result.publish_at).toISOString().split("T")[0]
+            : null,
+          is_active: result.is_active ? 1 : 0,
+          is_featured: result.is_featured ? 1 : 0,
+          content: result.content,
+          image: null,
+        });
+      }
+    };
+
     fetchArticle();
-  }, []);
+  }, [articleId]);
 
   const { form, handleChangeForm, setForm } = useForm();
 

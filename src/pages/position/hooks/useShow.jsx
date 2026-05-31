@@ -26,8 +26,10 @@ export const useShow = () => {
   const { position, loading, getPosition } = useGetPosition();
 
   useEffect(() => {
+    if (!positionId) return;
+
     getPosition(positionId);
-  }, []);
+  }, [positionId]);
 
   const deleteProps = useDelete({
     onSuccess: () => {

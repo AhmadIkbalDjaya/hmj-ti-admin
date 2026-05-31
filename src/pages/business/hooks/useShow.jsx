@@ -26,8 +26,10 @@ export const useShow = () => {
   const { business, loading, getBusiness } = useGetBusiness();
 
   useEffect(() => {
+    if (!businessId) return;
+
     getBusiness(businessId);
-  }, []);
+  }, [businessId]);
 
   const deleteProps = useDelete({
     onSuccess: () => {

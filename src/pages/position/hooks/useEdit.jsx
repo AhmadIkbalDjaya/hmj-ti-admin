@@ -28,22 +28,23 @@ export const useEdit = () => {
   ];
 
   const { loading, getPosition } = useGetPosition();
-  const fetchPosition = async () => {
-    const result = await getPosition(positionId);
-    if (result) {
-      setForm({
-        name: result.name,
-        slug: result.slug,
-        parent_id: result.parent_id ?? "",
-        level: result.level,
-        order_index: result.order_index,
-        is_active: result.is_active ? 1 : 0,
-      });
-    }
-  };
   useEffect(() => {
+    const fetchPosition = async () => {
+      const result = await getPosition(positionId);
+      if (result) {
+        setForm({
+          name: result.name,
+          slug: result.slug,
+          parent_id: result.parent_id ?? "",
+          level: result.level,
+          order_index: result.order_index,
+          is_active: result.is_active ? 1 : 0,
+        });
+      }
+    };
+
     fetchPosition();
-  }, []);
+  }, [positionId]);
 
   const { form, handleChangeForm, setForm } = useForm();
 
