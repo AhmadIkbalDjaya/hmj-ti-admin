@@ -8,7 +8,7 @@ import {
 
 const API_PREFIX = "/user/members";
 
-const MEMBER_FIELDS = ["name", "photo", "position_id"];
+const MEMBER_FIELDS = ["name", "gender", "photo", "position_id"];
 
 export const getMembers = async ({
   page = 1,

@@ -7,6 +7,11 @@ import DetailRow from "../../components/DetailRow";
 import SkeletonWrapper from "../../components/SkeletonWrapper";
 import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
 
+const GENDER_LABELS = {
+  male: "Laki-laki",
+  female: "Perempuan",
+};
+
 export default function ShowMemberPage() {
   const { value } = useShow();
 
@@ -44,6 +49,11 @@ export default function ShowMemberPage() {
               loading={value.loading}
             />
             <DetailRow
+              label="Jenis Kelamin"
+              value={GENDER_LABELS[value.member?.gender] ?? "-"}
+              loading={value.loading}
+            />
+            <DetailRow
               label="Jabatan"
               value={value.member?.position.name}
               loading={value.loading}
@@ -54,16 +64,25 @@ export default function ShowMemberPage() {
           <SkeletonWrapper
             loading={value.loading}
             variant="rectangular"
-            height="175px"
+            sx={{ aspectRatio: "1/1", width: "100%", height: "100%" }}
           >
-            <Box sx={{ backgroundColor: "gray-100", height: "175px" }}>
+            <Box
+              sx={{
+                backgroundColor: "gray-100",
+                aspectRatio: "1/1",
+                width: "100%",
+              }}
+            >
               {value.member?.photo ? (
-                <img
+                <Box
+                  component="img"
                   src={value.member?.photo}
                   alt={value.member?.name}
-                  height={"175px"}
-                  width="100%"
-                  style={{ objectFit: "cover" }}
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
                 />
               ) : (
                 <Box

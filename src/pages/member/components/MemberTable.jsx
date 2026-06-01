@@ -17,7 +17,7 @@ import TableSkeleton from "../../../components/TableSkeleton";
 import MemberTableRow from "./MemberTableRow";
 import TableSelectionBanner from "../../../components/TableSelectionBanner";
 
-const TABLE_HEADERS = ["No", "Nama Anggota", "Jabatan", "Aksi"];
+const TABLE_HEADERS = ["No", "Nama Anggota", "Jenis Kelamin", "Jabatan", "Aksi"];
 
 export default function MemberTable({
   members = [],
@@ -81,7 +81,7 @@ export default function MemberTable({
             </TableRow>
           </TableHead>
           {loading ? (
-            <TableSkeleton rows={8} columns={5} />
+            <TableSkeleton rows={8} columns={6} />
           ) : (
             <TableBody>
               {members.map((member, index) => (

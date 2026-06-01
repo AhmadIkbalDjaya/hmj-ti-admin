@@ -25,6 +25,7 @@ export const useCreate = () => {
 
   const formInitial = {
     name: "",
+    gender: "male",
     position_id: "",
     photo: null,
   };

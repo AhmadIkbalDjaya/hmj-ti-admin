@@ -7,6 +7,11 @@ import {
   TableActionShow,
 } from "../../../components/table/TableActions";
 
+const GENDER_LABELS = {
+  male: "Laki-laki",
+  female: "Perempuan",
+};
+
 export default function MemberTableRow({
   member,
   pagination,
@@ -41,6 +46,9 @@ export default function MemberTableRow({
         >
           {member.name}
         </Typography>
+      </TableCell>
+      <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
+        {GENDER_LABELS[member.gender] ?? "-"}
       </TableCell>
       <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
         {member.position.name}
