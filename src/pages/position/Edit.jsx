@@ -20,7 +20,10 @@ export default function EditPositionPage() {
         loading={value.loading}
         form={value.form}
         handleChangeForm={func.handleChangeForm}
+        handleSlugChange={func.handleChangeForm}
         errors={value.errors}
+        lockParent
+        lockLevel
       />
       <FormSubmitButton
         text="Simpan"

@@ -11,7 +11,7 @@ export const CreatePositionPage = () => {
     <>
       <AppBreadcrumbs items={value.breadcrumbItems} />
       <CreatePageHeader
-        title="Tambah Jabatan"
+        title={value.pageTitle}
         onClick={func.handleSubmit}
         loading={value.loading}
       />
@@ -20,6 +20,12 @@ export const CreatePositionPage = () => {
         handleChangeForm={func.handleChangeForm}
         handleSlugChange={func.handleSlugChange}
         errors={value.errors}
+        loading={value.parentLoading}
+        allowedLevels={value.allowedLevels}
+        showParentField={value.isChildCreate}
+        lockParent={value.isChildCreate}
+        lockLevel={value.isChildCreate}
+        parentLabel={value.parentLabel}
       />
       <FormSubmitButton
         onClick={func.handleSubmit}

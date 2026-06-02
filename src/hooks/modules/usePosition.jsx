@@ -20,6 +20,7 @@ export const useGetPositions = () => {
     search,
     is_active,
     level,
+    parent_id,
   } = {}) => {
     try {
       setLoading(true);
@@ -29,6 +30,7 @@ export const useGetPositions = () => {
         search,
         is_active,
         level,
+        parent_id,
       });
       setPositions(result.data);
       setMeta(result.meta);

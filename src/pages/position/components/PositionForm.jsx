@@ -11,18 +11,42 @@ import SkeletonWrapper from "../../../components/SkeletonWrapper";
 import AppInputLabel from "../../../components/input/AppInputLabel";
 import { useGetPositions } from "../../../hooks/modules/usePosition";
 
+export const POSITION_LEVEL_OPTIONS = [
+  { value: 0, label: "Presidium" },
+  { value: 1, label: "Wakil Ketua" },
+  { value: 2, label: "Bidang" },
+  { value: 3, label: "Ketua Bidang" },
+  { value: 4, label: "Anggota" },
+];
+
+export const getPositionLevelLabel = (level) =>
+  POSITION_LEVEL_OPTIONS.find((option) => option.value === Number(level))
+    ?.label ?? "Anggota";
+
 export default function PositionForm({
   form = {},
   handleChangeForm = () => {},
   handleSlugChange = () => {},
   errors = {},
   loading = false,
+  allowedLevels = POSITION_LEVEL_OPTIONS,
+  showParentField = true,
+  lockParent = false,
+  lockLevel = false,
+  parentLabel = "",
 }) {
   const { positions, fetchPositions } = useGetPositions();
 
   useEffect(() => {
-    fetchPositions();
-  }, []);
+    if (showParentField && !parentLabel) {
+      fetchPositions({ page: 1, limit: 1000 });
+    }
+  }, [showParentField, parentLabel]);
+
+  const resolvedParentLabel =
+    parentLabel ||
+    positions.find((position) => position.id === Number(form.parent_id))?.name ||
+    "-";
 
   return (
     <CardSection title="Informasi Jabatan">
@@ -69,34 +93,44 @@ export default function PositionForm({
             />
           </SkeletonWrapper>
         </Grid>
-        <Grid item xs={12} sm={4}>
-          <AppInputLabel label="Atasan" />
-          <SkeletonWrapper
-            loading={loading}
-            variant="rectangular"
-            height={32}
-            sx={{ borderRadius: "4px" }}
-          >
-            <Select
-              id="parent_id"
-              name="parent_id"
-              value={form.parent_id}
-              onChange={handleChangeForm}
-              fullWidth
-              displayEmpty
-              error={errors.parent_id}
+        {showParentField && (
+          <Grid item xs={12} sm={4}>
+            <AppInputLabel label="Atasan" />
+            <SkeletonWrapper
+              loading={loading}
+              variant="rectangular"
+              height={32}
+              sx={{ borderRadius: "4px" }}
             >
-              <MenuItem value="" disabled>
-                Pilih Atasan
-              </MenuItem>
-              {positions.map((position) => (
-                <MenuItem key={position.id} value={position.id}>
-                  {position.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </SkeletonWrapper>
-        </Grid>
+              {lockParent ? (
+                <TextField
+                  value={resolvedParentLabel}
+                  fullWidth
+                  disabled
+                />
+              ) : (
+                <Select
+                  id="parent_id"
+                  name="parent_id"
+                  value={form.parent_id}
+                  onChange={handleChangeForm}
+                  fullWidth
+                  displayEmpty
+                  error={errors.parent_id}
+                >
+                  <MenuItem value="" disabled>
+                    Pilih Atasan
+                  </MenuItem>
+                  {positions.map((position) => (
+                    <MenuItem key={position.id} value={position.id}>
+                      {position.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              )}
+            </SkeletonWrapper>
+          </Grid>
+        )}
         <Grid item xs={12} sm={4}>
           <AppInputLabel label="Level" required />
           <SkeletonWrapper
@@ -105,25 +139,39 @@ export default function PositionForm({
             height={32}
             sx={{ borderRadius: "4px" }}
           >
-            <Select
-              id="level"
-              name="level"
-              value={form.level}
-              onChange={handleChangeForm}
-              fullWidth
-              displayEmpty
-              error={errors.level}
-            >
-              <MenuItem value="" disabled>
-                Pilih Level
-              </MenuItem>
-              <MenuItem value={0}>Presidium</MenuItem>
-              <MenuItem value={1}>Wakil Ketua</MenuItem>
-              <MenuItem value={2}>Bidang</MenuItem>
-              <MenuItem value={3}>Ketua Bidang</MenuItem>
-              <MenuItem value={4}>Anggota</MenuItem>
-            </Select>
-            <FormHelperText error={errors.level}>{errors.level}</FormHelperText>
+            {lockLevel ? (
+              <TextField
+                value={getPositionLevelLabel(form.level)}
+                fullWidth
+                disabled
+                error={errors.level}
+                helperText={errors.level}
+              />
+            ) : (
+              <>
+                <Select
+                  id="level"
+                  name="level"
+                  value={form.level}
+                  onChange={handleChangeForm}
+                  fullWidth
+                  displayEmpty
+                  error={errors.level}
+                >
+                  <MenuItem value="" disabled>
+                    Pilih Level
+                  </MenuItem>
+                  {allowedLevels.map((level) => (
+                    <MenuItem key={level.value} value={level.value}>
+                      {level.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText error={errors.level}>
+                  {errors.level}
+                </FormHelperText>
+              </>
+            )}
           </SkeletonWrapper>
         </Grid>
         <Grid item xs={12} sm={4}>

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useGetPositions } from "../../../hooks/modules/usePosition";
-import { usePaginationSearch } from "../../../hooks/usePaginationSearch";
+import { useSearch } from "../../../hooks/useSearch";
 import { useDelete } from "./useDelete";
 import { useTitle } from "../../../hooks/useTitle";
 import { useFilters } from "../../../hooks/useFilters";
@@ -18,40 +18,22 @@ export const useIndex = () => {
     },
   ];
 
-  const {
-    pagination,
-    handleChangePage,
-    handleChangePerpage,
-    search,
-    onSearch,
-    resetPage,
-  } = usePaginationSearch();
+  const { search, handleSearch: onSearch } = useSearch();
 
-  const { filters, handleChangeFilter } = useFilters(
-    { is_active: null },
-    { onFilterChange: resetPage },
-  );
+  const { filters, handleChangeFilter } = useFilters({ is_active: null });
 
-  const { positions, meta, loading, fetchPositions } = useGetPositions();
+  const { positions, loading, fetchPositions } = useGetPositions();
   const fetchPositionsWithParams = () => {
     fetchPositions({
-      page: pagination.page,
-      limit: pagination.perpage,
-      search: search,
+      page: 1,
+      limit: 1000,
       ...filters,
     });
   };
 
   useEffect(() => {
     fetchPositionsWithParams();
-  }, [pagination.page, pagination.perpage, search, filters]);
-
-  const paginationProps = {
-    page: meta?.page || 1,
-    perpage: meta?.limit || 10,
-    total: meta?.total || 0,
-    total_page: meta?.total_page || 0,
-  };
+  }, [filters]);
 
   const deleteProps = useDelete({ onSuccess: fetchPositionsWithParams });
 
@@ -60,14 +42,12 @@ export const useIndex = () => {
       breadcrumbItems,
       positions,
       loading,
-      pagination: paginationProps,
+      totalPositions: positions.length,
       search,
       delete: deleteProps,
       filters,
     },
     func: {
-      handleChangePage,
-      handleChangePerpage,
       onSearch,
       handleChangeFilter,
     },

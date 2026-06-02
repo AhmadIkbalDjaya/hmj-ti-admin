@@ -1,51 +1,78 @@
-import { Box, TableCell, TableRow, Typography } from "@mui/material";
-import { getLineNumber } from "../../../helpers/tableHelpers";
+import { Box, IconButton, TableCell, TableRow, Typography } from "@mui/material";
 import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
+import { FiChevronDown, FiChevronRight } from "react-icons/fi";
 import {
   TableActionDelete,
   TableActionEdit,
   TableActionShow,
 } from "../../../components/table/TableActions";
 
+const LEVEL_LABELS = {
+  0: "Presidium",
+  1: "Wakil Ketua",
+  2: "Bidang",
+  3: "Ketua Bidang",
+};
+
 export default function PositionTableRow({
   position,
-  pagination,
-  index,
+  expanded = false,
+  onToggleExpanded = () => {},
   onDeleteData,
 }) {
+  const hasChildren = position.children.length > 0;
+
   return (
-    <TableRow key={index}>
-      <TableCell
-        sx={{ padding: "0 10px", fontWeight: "500", height: "42px" }}
-        align="center"
-      >
-        {getLineNumber(pagination, index)}
-      </TableCell>
+    <TableRow key={position.id}>
       <TableCell sx={{ padding: "0 10px" }}>
-        <Typography
+        <Box
           sx={{
-            fontWeight: "600",
-            maxWidth: 300,
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            display: "-webkit-box",
-            WebkitLineClamp: 1,
-            WebkitBoxOrient: "vertical",
+            display: "flex",
+            alignItems: "center",
+            minHeight: 42,
+            pl: `${position.depth * 24}px`,
           }}
         >
-          {position.name}
-        </Typography>
+          <Box
+            sx={{
+              width: 24,
+              display: "flex",
+              justifyContent: "center",
+              mr: 0.5,
+            }}
+          >
+            {hasChildren ? (
+              <IconButton
+                size="small"
+                onClick={() => onToggleExpanded(position.id)}
+                aria-label={expanded ? "Tutup turunan" : "Buka turunan"}
+                sx={{ padding: 0.25 }}
+              >
+                {expanded ? (
+                  <FiChevronDown size={18} />
+                ) : (
+                  <FiChevronRight size={18} />
+                )}
+              </IconButton>
+            ) : null}
+          </Box>
+          <Typography
+            sx={{
+              fontWeight: "600",
+              maxWidth: 300,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: 1,
+              WebkitBoxOrient: "vertical",
+            }}
+          >
+            {position.name}
+          </Typography>
+        </Box>
       </TableCell>
       <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
-        {position.level === 0
-          ? "Presidium"
-          : position.level === 1
-            ? "Wakil Ketua"
-            : position.level === 2
-              ? "Bidang"
-              : position.level === 3
-                ? "Ketua Bidang"
-                : "Anggota"}
+        {LEVEL_LABELS[position.level] ?? "Anggota"}
       </TableCell>
       <TableCell sx={{ padding: "0 10px", fontWeight: "500" }}>
         <Box

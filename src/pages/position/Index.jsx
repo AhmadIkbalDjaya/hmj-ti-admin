@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import { useIndex } from "./hooks/useIndex";
-import { AppLink } from "../../components/AppLink";
 import PositionTable from "./components/PositionTable";
 import TableSearchForm from "../../components/TableSearchForm";
 import TableCreateButton from "../../components/TableCreateButton";
@@ -17,7 +16,7 @@ export const PositionPage = () => {
       <AppBreadcrumbs items={value.breadcrumbItems} />
       <SectionTitleWithCount
         title="Jabatan"
-        total={value.pagination.total ?? 0}
+        total={value.totalPositions ?? 0}
       />
       <Box
         sx={{
@@ -71,9 +70,7 @@ export const PositionPage = () => {
       <PositionTable
         loading={value.loading}
         positions={value.positions}
-        pagination={value.pagination}
-        handleChangePage={func.handleChangePage}
-        handleChangePerpage={func.handleChangePerpage}
+        search={value.search}
         onDeleteData={value.delete.onOpen}
       />
       <ConfirmDeleteModal

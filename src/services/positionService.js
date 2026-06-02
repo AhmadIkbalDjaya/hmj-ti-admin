@@ -10,6 +10,7 @@ export const getPositions = async ({
   search = null,
   is_active = null,
   level = null,
+  parent_id = null,
 }) => {
   try {
     const params = filterNullParams({
@@ -18,6 +19,7 @@ export const getPositions = async ({
       search,
       is_active,
       level,
+      parent_id,
     });
     const response = await apiClient.get(API_PREFIX, { params });
 
