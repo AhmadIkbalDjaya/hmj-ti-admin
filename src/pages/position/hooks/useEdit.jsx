@@ -35,7 +35,7 @@ export const useEdit = () => {
         setForm({
           name: result.name,
           slug: result.slug,
-          parent_id: result.parent_id ?? "",
+          parent_id: result.parent ? result.parent.id : "",
           level: result.level,
           order_index: result.order_index,
           is_active: result.is_active ? 1 : 0,

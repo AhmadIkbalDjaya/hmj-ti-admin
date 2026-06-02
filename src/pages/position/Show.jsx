@@ -30,8 +30,8 @@ export default function ShowPositionPage() {
           loading={value.loading}
         />
         <DetailRow
-          label="Parent ID"
-          value={value.position?.parent_id ?? "-"}
+          label="Atasan"
+          value={value.position?.parent ? value.position?.parent?.name : "-"}
           loading={value.loading}
         />
         <DetailRow
